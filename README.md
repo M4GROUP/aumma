@@ -20,8 +20,6 @@
 </ul>
 <h3 class="code-line" data-line-start=24 data-line-end=25 ><a id="Membros_24"></a>Membros</h3>
 
-### Membros
-
 - <a href="https://github.com/lolaeurich">Paola Eurich(Cargo) </a>;
 - <a href="https://github.com/exemplo">Jefferson Freitas(Cargo);<a>
 - <a href="https://github.com/Bravineugenio">Eugenio Bravin(Cargo);<a>
