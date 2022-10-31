@@ -11,7 +11,7 @@ export interface IInstitutionRequest {
     email: string
     password: string
     acc_children_disability: boolean
-    schedules: IScheduleRequest
-    childrens: IChildrenRequest
-    mothers: IMotherRequest
+    schedules?: IScheduleRequest
+    childrens?: IChildrenRequest
+    mothers?: IMotherRequest
 }
