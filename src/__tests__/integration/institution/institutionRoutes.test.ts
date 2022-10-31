@@ -3,7 +3,7 @@ import AppDataSource from "../../../data-source";
 import request from "supertest"
 import app from "../../../app";
 import { mockedAdm, mockedAdminLogin, mockedNotAdminLogin } from "../../mocks/admin";
-import { mockedInstitution } from "../../mocks/institutions";
+import { mockedInstitution, mockedInstitutionWithoutCNPJ, mockedInstitutionWithoutName } from "../../mocks/institutions";
 
 
 describe ("/institutions", () =>{
@@ -44,9 +44,24 @@ describe ("/institutions", () =>{
         expect(response.status).toBe(201)        
     })
 
+
+    test("POST /institutions -  should not be able to create a institutions whitout CNPJ",async () => {
+        const response = await request(app).post('/institutions').send(mockedInstitutionWithoutCNPJ)
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(400)
+       
+    })
+
+    test("POST /institutions -  should not be able to create a institutions whitout name",async () => {
+        const response = await request(app).post('/institutions').send(mockedInstitutionWithoutName)
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(400)
+       
+    })
+
+
     test("POST /institutions -  should not be able to create a institutions that already exists",async () => {
         const response = await request(app).post('/institutions').send(mockedInstitution)
-
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(400)
              
@@ -72,7 +87,6 @@ describe ("/institutions", () =>{
     test("GET /institutions -  should not be able to list institutions not being admin",async () => {
         const userLoginResponse = await request(app).post("/login").send(mockedNotAdminLogin);
         const response = await request(app).get('/institutions').set("Authorization", `Bearer ${userLoginResponse.body.token}`)
-
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(403)
              
