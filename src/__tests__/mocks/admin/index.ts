@@ -1,6 +1,5 @@
 import { IAdmLogin, IAdmRequest } from "../../../interfaces/adm"
 
-
 export const mockedAdm : IAdmRequest = {
     name:"Joao",
     email: "joao@mail.com",
