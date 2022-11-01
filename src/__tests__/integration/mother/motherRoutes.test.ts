@@ -2,7 +2,10 @@ import { DataSource } from "typeorm";
 import AppDataSource from "../../../data-source";
 import request from "supertest";
 import app from "../../../app";
-import { mockedMother, mockedMotherLogin, mockedMotherNewValues } from "../../mocks/mother";
+import { 
+    mockedMother, mockedMotherLogin, mockedMotherNewValues, mockedMotherWithoutCPF,
+    mockedMotherWithoutEmail, mockedMotherWithoutName, mockedMotherWithoutPassword
+} from "../../mocks/mother";
 
 describe("/mothers", () => {
     let connection: DataSource
@@ -22,7 +25,7 @@ describe("/mothers", () => {
 
     test("POST /mothers -  Must be able to create a mother", async () => {
 
-        const response = await request(app).post('/institutions').send(mockedMother)
+        const response = await request(app).post('/mothers').send(mockedMother)
 
         expect(response.body).toHaveProperty("id")
         expect(response.body).toHaveProperty("name")
@@ -52,6 +55,42 @@ describe("/mothers", () => {
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(400)     
     
+    })
+
+    test("POST /mothers -  should not be able to create a mother whitout CPF",async () => {
+
+        const response = await request(app).post('/mothers').send(mockedMotherWithoutCPF)
+
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(400)
+       
+    })
+
+    test("POST /mothers -  should not be able to create a mother whitout name",async () => {
+
+        const response = await request(app).post('/mothers').send(mockedMotherWithoutName)
+
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(400)
+       
+    })
+
+    test("POST /mothers -  should not be able to create a mother whitout email",async () => {
+
+        const response = await request(app).post('/mothers').send(mockedMotherWithoutEmail)
+        
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(400)
+       
+    })
+
+    test("POST /mothers -  should not be able to create a mother whitout password",async () => {
+
+        const response = await request(app).post('/mothers').send(mockedMotherWithoutPassword)
+        
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(400)
+       
     })
 
     test("GET /mothers:id -  Must be able to list one mother", async () => {
