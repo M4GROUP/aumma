@@ -15,3 +15,9 @@ export interface IInstitutionRequest {
     childrens?: IChildrenRequest
     mothers?: IMotherRequest
 }
+
+
+export interface IInstitutionLogin {
+    email: string
+    password: string
+}
