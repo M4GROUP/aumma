@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import getAllInstitutionsService from "../../services/institution/getAllInstitutions.service";
-import { AppError, handleError } from "../../Errors/AppError";
+import { AppError, handleError } from "../../errors/AppError";
 
-const getAllPropertiesController = async (req: Request, res: Response) => {
+const getAllInstitutionsController = async (req: Request, res: Response) => {
   try {
     const property = await getAllInstitutionsService();
 
@@ -14,4 +14,4 @@ const getAllPropertiesController = async (req: Request, res: Response) => {
   }
 };
 
-export default getAllPropertiesController;
+export default getAllInstitutionsController;

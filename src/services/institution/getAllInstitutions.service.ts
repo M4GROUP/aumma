@@ -1,13 +1,25 @@
 import AppDataSource from "../../data-source";
-import { Institutions } from "../../entities/institutions.entity";
+import { Institution } from "../../entities/Institution.entity";
 
 
 const getAllInstitutionsService = async () => {
     
-    const institutionsRepository = AppDataSource.getRepository(Institutions);
-    const allInstitutions = institutionsRepository.find()
+    const institutionsRepository = AppDataSource.getRepository(Institution)
+    .createQueryBuilder("institution")
+    .select([
+      "institution.id",
+      "institution.name",
+      "institution.address",
+      "institution.cnpj",
+      "institution.ageGroup",
+      "institution.phone",
+      "institution.email",
+      "institution.PCDAccept",
+    ])
+    .getMany();
 
-    return allInstitutions
+
+  return institutionsRepository
 
 };
 

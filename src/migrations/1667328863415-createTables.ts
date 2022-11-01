@@ -2,8 +2,10 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class createTables1667328863415 implements MigrationInterface {
     name = 'createTables1667328863415'
+    
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
         await queryRunner.query(`CREATE TABLE "schedules" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "date" TIMESTAMP NOT NULL, "isActive" boolean NOT NULL, "period" character varying NOT NULL, "institutionId" uuid, "motherId" uuid, "adminId" uuid, CONSTRAINT "PK_7e33fc2ea755a5765e3564e66dd" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "institution" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(128) NOT NULL, "password" character varying(128) NOT NULL, "address" character varying(240) NOT NULL, "cnpj" character varying(128) NOT NULL, "ageGroup" integer NOT NULL, "phone" integer NOT NULL, "email" character varying(128) NOT NULL, "PCDAccept" boolean NOT NULL, "adminId" uuid, CONSTRAINT "UQ_c9af99711dccbeb22b20b24cca8" UNIQUE ("cnpj"), CONSTRAINT "UQ_43c747addb41aeac8b1da0c58d5" UNIQUE ("email"), CONSTRAINT "PK_f60ee4ff0719b7df54830b39087" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "mother" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(128) NOT NULL, "address" character varying(240) NOT NULL, "phone" integer NOT NULL, "email" character varying(128) NOT NULL, "password" character varying(128) NOT NULL, "cpf" character varying(128) NOT NULL, "rg" character varying(128) NOT NULL, "institutionsMotherId" uuid, "adminId" uuid, CONSTRAINT "UQ_6d38c477457191cc30f8893ef3f" UNIQUE ("email"), CONSTRAINT "UQ_11cbb4f6221485ed08966d1f95b" UNIQUE ("cpf"), CONSTRAINT "UQ_eeaf53b301b5d284acd10f7f6c5" UNIQUE ("rg"), CONSTRAINT "PK_d429afd0d4f97003ac3f49fc885" PRIMARY KEY ("id"))`);

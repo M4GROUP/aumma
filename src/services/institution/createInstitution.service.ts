@@ -2,68 +2,70 @@ import { IInstitutionRequest } from "../../interfaces/institutions";
 import AppDataSource from "../../data-source";
 import * as bcryptjs from "bcryptjs";
 import { AppError } from "../../errors/AppError";
- import Institution from "../../entities/institution.entities.ts";
-
+import { Institution } from "../../entities/Institution.entity";
 
 const createInstitutionService = async ({
   name,
   address,
   cnpj,
-  age_group,
-  telephone,
+  ageGroup,
+  phone,
   email,
   password,
-  acc_children_disability,
+  PCDAccept,
 }: IInstitutionRequest) => {
   const institutionRepository = AppDataSource.getRepository(Institution);
 
   const institutions = await institutionRepository.find();
-
   const institutionAlreadyExists = institutions.find(
-    (institution) => institution.name === name
+    (institution) => institution.cnpj === cnpj
   );
-
   if (institutionAlreadyExists) {
-    throw new AppError(409, "Institution already exists");
+    throw new AppError(409, "Institution CNPJ already exists, try a new one");
+  }
+
+  const institutionEmailAlreadyExists = institutions.find(
+    (institution) => institution.email === email
+  );
+  if (institutionEmailAlreadyExists) {
+    throw new AppError(409, "Institution already exists, try new email ");
+  }
+
+  if (name.length <= 3) {
+    throw new AppError(404, "Institution name must have more letters than 3");
+  }
+
+  if (cnpj.length > 14 || cnpj.length < 14) {
+    throw new AppError(
+      404,
+      "Institution CNPJ must have 14 number and only numbers"
+    );
   }
 
   const institution = new Institution();
   institution.name = name;
   institution.address = address;
   institution.cnpj = cnpj;
-  institution.age_group = age_group;
-  institution.telephone = telephone;
+  institution.ageGroup = ageGroup;
+  institution.phone = phone;
   institution.email = email;
   institution.password = bcryptjs.hashSync(password, 10);
-  institution.acc_children_disability = acc_children_disability;
-
+  institution.PCDAccept = PCDAccept;
+  
   institutionRepository.create(institution);
-
-  if ((institution.name.length = 0)) {
-    throw new AppError(400, "Institution must have a name");
-  }
-
-  if ((institution.cnpj.length = 0 || institution.cnpj.length > 14)) {
-    throw new AppError(
-      400,
-      "Institution must have 14 numbers and only numbers"
-    );
-  }
-
   await institutionRepository.save(institution);
 
   const newInstitution = {
     id: institution.id,
-    name: institution.name,
+    name: name,
     address: institution.address,
     cnpj: institution.cnpj,
-    age_group: institution.age_group,
-    telephone: institution.telephone,
+    ageGroup: institution.ageGroup,
+    phone: institution.phone,
     email: institution.email,
-    acc_children_disability: institution.acc_children_disability,
+    PCDAccept: institution.PCDAccept,
   };
 
-  console.log(newInstitution);
   return newInstitution;
 };
 
