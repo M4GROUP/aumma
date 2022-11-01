@@ -2,7 +2,7 @@ import { IInstitutionRequest } from "../../interfaces/institutions";
 import AppDataSource from "../../data-source";
 import * as bcryptjs from "bcryptjs";
 import { AppError } from "../../errors/AppError";
-// import Institution from "../../entities/institution.entities.ts";
+ import Institution from "../../entities/institution.entities.ts";
 
 
 const createInstitutionService = async ({
