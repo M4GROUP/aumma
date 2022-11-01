@@ -10,7 +10,23 @@ export interface IMotherRequest {
     password: string
     cpf: string
     rg: string
-    schedules: IScheduleRequest
-    childrens: IChildrenRequest
-    institutions: IInstitutionRequest
+    schedules?: IScheduleRequest
+    childrens?: IChildrenRequest
+    institutions?: IInstitutionRequest
+}
+
+export interface IMotherNewValues {
+    id: string
+    name: string
+    address: string
+    telephone: number
+    email: string
+    password: string
+    cpf: string
+    rg: string
+}
+
+export interface IMotherLogin {
+    name: string
+    password: string
 }
