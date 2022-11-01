@@ -6,11 +6,11 @@ export interface IInstitutionRequest {
     name: string
     address: string
     cnpj: string
-    age_group: number
-    telephone: number
+    ageGroup: number
+    phone: number
     email: string
     password: string
-    acc_children_disability: boolean
+    PCDAccept: boolean
     schedules?: IScheduleRequest
     childrens?: IChildrenRequest
     mothers?: IMotherRequest
