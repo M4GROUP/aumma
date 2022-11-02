@@ -14,3 +14,8 @@ export interface IChildrenRequest {
 export interface IChildrenResponse extends IChildrenRequest {
     id: string
 }
+
+export interface IUpdateChildren {
+    age: number
+    with_disability: boolean
+}
