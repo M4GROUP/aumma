@@ -3,9 +3,15 @@ import * as express from "express"
 declare global {
     namespace Express {
         interface Request {
-            user: {
+            institution: {
                 id: string
-                
+            },
+            adm:{
+                id:string
+                isAdm:boolean
+            },
+            mother:{
+                id:string
             }
         }
     }
