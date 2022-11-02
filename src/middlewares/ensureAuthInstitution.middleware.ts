@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 import { AppError } from "../errors/AppError";
 
-const ensureAuthMiddleware = async (
+const ensureInstitutionAuthMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -22,7 +22,7 @@ const ensureAuthMiddleware = async (
             throw new AppError(401, "Invalid Token")
         }
 
-      req.user = {
+      req.institution = {
         id: decoded.id,
       };
 
@@ -31,4 +31,4 @@ const ensureAuthMiddleware = async (
   );
 };
 
-export default ensureAuthMiddleware;
+export default ensureInstitutionAuthMiddleware;

@@ -2,7 +2,7 @@ import { Response } from "express"
 
 export class AppError extends Error {
 
-  statusCode:number
+  statusCode
 
   constructor(statusCode: number, message: string) {
       super()
