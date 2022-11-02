@@ -8,18 +8,15 @@ describe("/login/mothers", () => {
 
     let connection: DataSource
 
-    beforeAll(async () => {
-
+    beforeAll(async() => {
         await AppDataSource.initialize().then((res) => {
             connection = res
         }).catch((err) => {
             console.error("Error during Data Source initialization", err)
         })
 
-        await request(app).post('/mothers').send(mockedMother)
-
+        await request(app).post('/users').send(mockedMother)
     })
-
     afterAll(async () => {
         await connection.destroy()
     })
