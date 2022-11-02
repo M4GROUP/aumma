@@ -37,7 +37,7 @@ export class Institution {
     @Column()
     PCDAccept: boolean
 
-    @OneToMany((type) => Schedules, (schedulesInstitutions) => schedulesInstitutions.institution, {nullable: true})
+    @OneToMany((type) => Schedules, (schedulesInstitutions) => schedulesInstitutions.institution )
     schedules: Schedules[]
    
     @OneToMany((type) => Childrens, (childrensInInstitutions) => childrensInInstitutions.institution)

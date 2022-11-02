@@ -5,6 +5,9 @@ declare global {
         interface Request {
             institution: {
                 id: string
+                // AdminID:{
+                //     id:string
+                // }
             },
             adm:{
                 id:string
