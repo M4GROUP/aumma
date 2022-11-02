@@ -28,6 +28,9 @@ export class Institution {
     @Column()
     phone: number
 
+    @Column({default:true})
+    isActive: boolean
+
     @Column({length: 128, unique: true})
     email: string
 
