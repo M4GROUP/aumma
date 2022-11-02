@@ -7,6 +7,10 @@ export interface IChildrenRequest {
     age: number
     with_disability: boolean
     gender: string
-    mother: IMotherRequest
-    institutions: IInstitutionRequest
+    motherId: string
+    institutionsId: string
+}
+
+export interface IChildrenResponse extends IChildrenRequest {
+    id: string
 }
