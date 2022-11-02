@@ -3,7 +3,7 @@ import { IMotherLogin, IMotherRequest } from "../../../interfaces/mothers";
 export const mockedMother: IMotherRequest = {
     name: "Laura Mendes Freitas",
     address: "Rua do Antônio Marcos Andrade, 70 - Morumbi - São Paulo/SP",
-    telephone: 27988440837,
+    phone: 27988440837,
     email: "laura@mail.com",
     password: "Laura123",
     cpf: "86101289521",
@@ -21,13 +21,13 @@ export const mockedMotherNewValues = {
     address: "Rua das Andorinhas, 10 - Capão redondo - São Paulo/SP",
     cpf: "78901496390",
     rg: "9857870987",
-    telephone: 73988019679
+    phone: 73988019679
 }
 
 export const mockedMotherWithoutName: IMotherRequest = {
     name: "",
     address: "Rua do Antônio Marcos Andrade, 70 - Morumbi - São Paulo/SP",
-    telephone: 27988440837,
+    phone: 27988440837,
     email: "laura@mail.com",
     password: "Laura123",
     cpf: "86101289521",
@@ -37,7 +37,7 @@ export const mockedMotherWithoutName: IMotherRequest = {
 export const mockedMotherWithoutAddress: IMotherRequest = {
     name: "Laura Mendes Freitas",
     address: "",
-    telephone: 27988440837,
+    phone: 27988440837,
     email: "laura@mail.com",
     password: "Laura123",
     cpf: "86101289521",
@@ -47,7 +47,7 @@ export const mockedMotherWithoutAddress: IMotherRequest = {
 export const mockedMotherWithoutTelephone: IMotherRequest = {
     name: "Laura Mendes Freitas",
     address: "Rua do Antônio Marcos Andrade, 70 - Morumbi - São Paulo/SP",
-    telephone: 0,
+    phone: 0,
     email: "laura@mail.com",
     password: "Laura123",
     cpf: "86101289521",
@@ -57,7 +57,7 @@ export const mockedMotherWithoutTelephone: IMotherRequest = {
 export const mockedMotherWithoutEmail: IMotherRequest = {
     name: "Laura Mendes Freitas",
     address: "Rua do Antônio Marcos Andrade, 70 - Morumbi - São Paulo/SP",
-    telephone: 27988440837,
+    phone: 27988440837,
     email: "",
     password: "Laura123",
     cpf: "86101289521",
@@ -67,7 +67,7 @@ export const mockedMotherWithoutEmail: IMotherRequest = {
 export const mockedMotherWithoutPassword: IMotherRequest = {
     name: "Laura Mendes Freitas",
     address: "Rua do Antônio Marcos Andrade, 70 - Morumbi - São Paulo/SP",
-    telephone: 27988440837,
+    phone: 27988440837,
     email: "laura@mail.com",
     password: "",
     cpf: "86101289521",
@@ -77,7 +77,7 @@ export const mockedMotherWithoutPassword: IMotherRequest = {
 export const mockedMotherWithoutCPF: IMotherRequest = {
     name: "Laura Mendes Freitas",
     address: "Rua do Antônio Marcos Andrade, 70 - Morumbi - São Paulo/SP",
-    telephone: 27988440837,
+    phone: 27988440837,
     email: "laura@mail.com",
     password: "Laura123",
     cpf: "",
@@ -87,7 +87,7 @@ export const mockedMotherWithoutCPF: IMotherRequest = {
 export const mockedMotherWithoutRg: IMotherRequest = {
     name: "Laura Mendes Freitas",
     address: "Rua do Antônio Marcos Andrade, 70 - Morumbi - São Paulo/SP",
-    telephone: 27988440837,
+    phone: 27988440837,
     email: "laura@mail.com",
     password: "Laura123",
     cpf: "86101289521",

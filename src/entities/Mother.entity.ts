@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm"
+import { Exclude } from "class-transformer";
 
 import { Childrens } from "./Childrens.entity"
 import { Institution } from "./Institution.entity"
@@ -23,6 +24,7 @@ export class Mother {
     email: string
 
     @Column({length: 128})
+    @Exclude()
     password: string
 
     @Column({length: 128, unique: true})

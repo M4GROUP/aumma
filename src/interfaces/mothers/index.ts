@@ -5,15 +5,24 @@ import { IScheduleRequest } from "../schedules"
 export interface IMotherRequest {
     name: string
     address: string
-    telephone: number
+    phone: number
     email: string
     password: string
     cpf: string
     rg: string
-    schedules?: IScheduleRequest
-    childrens?: IChildrenRequest
-    institutions?: IInstitutionRequest
 }
+
+export interface IMother {
+    id: string
+    name: string
+    address: string
+    phone: number
+    email: string
+    password: string
+    cpf: string
+    rg: string
+}
+
 
 export interface IMotherNewValues {
     id: string
