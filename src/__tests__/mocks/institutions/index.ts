@@ -1,10 +1,10 @@
-import { IInstitutionRequest } from "../../../interfaces/institutions";
+import { IInstitutionLogin, IInstitutionRequest } from "../../../interfaces/institutions";
 
 
 export const mockedInstitution : IInstitutionRequest = {
     name: "Favo de mel",
     address: "Rua do peixoto, 35 - Jardim Limoeiro - Serra/ES",
-    cnpj: "123457890001-02",
+    cnpj: "12345789000102",
     ageGroup: 3,
     phone: 33218600,
     email: "favodemel@mail.com",
@@ -35,3 +35,13 @@ export const mockedInstitutionWithoutName : IInstitutionRequest = {
     password: "senhaMuitoForte3",
 }
 
+export const mockedInstitutionLogin : IInstitutionLogin = {
+    email: "favodemel@mail.com",
+    password: "senhaMuitoForte",
+}
+
+
+export const mockedInstitutionWrongLogin : IInstitutionLogin = {
+    email: "favodemelerrado@mail.com",
+    password: "senhaMuitoFraca",
+}

@@ -153,16 +153,11 @@ export default {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-<<<<<<< HEAD
-   testMatch: [
-    "**/**/*.spec.ts"
-   ],
-=======
+
   testMatch: [
     "**/__tests__/integration/**/*.[jt]s?(x)"
    
-  ],
->>>>>>> 2752987535b0ef098a65164f75aed34149a1626a
+  ]
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
