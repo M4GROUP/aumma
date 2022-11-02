@@ -23,6 +23,8 @@ const updateMotherService = async (id: string, motherRequest: IMotherRequest): P
 
     const updatedUser = instanceToInstance(await motherRepository.findOneBy({id}));
 
+    console.log(updatedUser)
+
     return updatedUser!
 
 }

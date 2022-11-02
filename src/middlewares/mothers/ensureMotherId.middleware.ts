@@ -13,7 +13,9 @@ const ensureMotherId = async (req: Request, res: Response, next: NextFunction) =
 
         const mother = await motherRepository.findOneBy({id});
 
-        if(!mother){ throw new AppError(401, "Invalid id") }
+        if(!mother){ throw new AppError(401, "Invalid id") };
+
+        return next();
 
     } catch (error) {
         

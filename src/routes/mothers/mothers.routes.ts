@@ -1,11 +1,12 @@
 import { Router } from "express";
+
 import createMotherController from "../../controllers/mothers/createMother.controller";
 import listOneMotherController from "../../controllers/mothers/listOneMother.controller";
 import updateMotherController from "../../controllers/mothers/updateMother.controller";
-import ensureMotherId from "../../middlewares/mothers/ensureMotherId.middleware";
 
-import ensureExistsMother from "../../middlewares/mothers/ensurePasswordExistsMother.middleware";
-import ensurePassword from "../../middlewares/mothers/ensurePasswordPassword.middleware";
+import ensureMotherId from "../../middlewares/mothers/ensureMotherId.middleware";
+import ensureExistsMother from "../../middlewares/mothers/ensureExistsMother.middleware";
+import ensurePassword from "../../middlewares/mothers/ensurePassword.middleware";
 
 const routes = Router();
 

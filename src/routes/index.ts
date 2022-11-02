@@ -8,6 +8,7 @@ export const appRoutes = (app: Express) => {
     
     app.use("/institutions", institutionsRoutes());
     app.use("/children", routerChildren());
-    app.use("/mothers", motherRouter);
-    app.use("login/", sessionMotherRouter);
+    app.use("/mothers", motherRouter());
+    app.use("login/", sessionMotherRouter());
+    
 };

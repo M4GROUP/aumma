@@ -24,6 +24,8 @@ const createMotherService = async (motherRequest: IMotherRequest): Promise<IMoth
 
     const newMother = instanceToInstance(mother);
 
+    console.log(newMother)
+
     return newMother;
 
 };
