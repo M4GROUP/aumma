@@ -106,7 +106,7 @@ describe ("/institutions", () =>{
         const token = `Bearer ${intitutionLoginResponse.body.token}`
         const id = intitutionLoginResponse.body.id_Institution
         
-        const response = await request(app).delete(`/institutions/${id}`).set("Authorization",token)
+        const response = await request(app).patch(`/institutions/${id}`).set("Authorization",token)
         const findUser = await request(app).get(`/institutions/${id}`).set("Authorization",token)
         expect(response.status).toBe(204)
         expect(findUser.body[0].isActive).toBe(false)
@@ -114,7 +114,7 @@ describe ("/institutions", () =>{
     })
 
     test("DELETE /institutions/:id -  should not be able to delete institution without authentication",async () => {
-        const response = await request(app).get(`/institutions/0ac51579-f72b-49e6-b7fc-10a2127af1c4`)
+        const response = await request(app).delete(`/institutions/0ac51579-f72b-49e6-b7fc-10a2127af1c4`)
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(401) 
              
