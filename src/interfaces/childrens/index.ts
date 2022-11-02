@@ -8,7 +8,7 @@ export interface IChildrenRequest {
     with_disability: boolean
     gender: string
     motherId: string
-    institutionsId: string
+    institutionsId?: string
 }
 
 export interface IChildrenResponse extends IChildrenRequest {

@@ -24,9 +24,10 @@ const institutionLoginService = async ({ email, password }: IInstitutionLogin) =
     {
       email: email,
       id: account.id,
+      // AdminID: account.admin.id
     },
     String(process.env.SECRET_KEY),
-    { expiresIn: "24h" }
+    { expiresIn: "24h", subject:account.id }
   );
 
   return token;

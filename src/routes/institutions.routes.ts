@@ -6,6 +6,7 @@ import ensureInstitutionAuthMiddleware from "../middlewares/ensureAuthInstitutio
 import getMyInstitutionsController from "../controllers/institution/getMyInstitutions.controller";
 import deleteInstitutionController from "../controllers/institution/deleteInstitution.controller";
 import ensureIsInstitutionMiddleware from "../middlewares/ensureIsInstitution.middleware";
+import updateInstitutionController from "../controllers/institution/updateInstitution.controller";
 
 
 
@@ -13,9 +14,10 @@ const routes = Router()
 
 export const institutionsRoutes = () => {
 
-    routes.post('/', createInstitutionController)
-    routes.get('/:id',ensureInstitutionAuthMiddleware, ensureIsInstitutionMiddleware ,getMyInstitutionsController)
-    routes.post('/login', institutionLoginController)
-    routes.delete('/:id', deleteInstitutionController)
+    routes.post("/", createInstitutionController)
+    routes.get("/:id",ensureInstitutionAuthMiddleware,ensureIsInstitutionMiddleware, getMyInstitutionsController)
+    routes.post("/login", institutionLoginController)
+    routes.delete("/:id", deleteInstitutionController)
+    routes.patch("/:id",ensureInstitutionAuthMiddleware, updateInstitutionController)
     return routes
 }
