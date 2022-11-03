@@ -11,7 +11,7 @@ const updateInstitutionController = async (req: Request, res: Response) => {
 
     const user = await updateInstitutionService(id, updatedData);
 
-    return res.status(204).json({ message: "Data updated!" });
+    return res.status(200).json({ message: "Data updated!" });
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);

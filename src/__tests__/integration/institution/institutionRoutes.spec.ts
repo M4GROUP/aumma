@@ -106,7 +106,7 @@ describe ("/institutions", () =>{
         const token = `Bearer ${intitutionLoginResponse.body.token}`
         const id = intitutionLoginResponse.body.id_Institution
         
-        const response = await request(app).patch(`/institutions/${id}`).set("Authorization",token)
+        const response = await request(app).delete(`/institutions/${id}`).set("Authorization",token)
         const findUser = await request(app).get(`/institutions/${id}`).set("Authorization",token)
         expect(response.status).toBe(204)
         expect(findUser.body[0].isActive).toBe(false)
