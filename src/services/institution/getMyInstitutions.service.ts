@@ -6,7 +6,7 @@ const getMyInstitutionsService = async (institutionId: string) => {
 
     const myInds = await institutionsRepository.find({
         where: { id: institutionId },
-        relations: { childrensIn: true, schedules: true, mother: true },
+        relations: { schedules: true},
     });
     return myInds;
 };

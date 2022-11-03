@@ -6,7 +6,7 @@ const deleteInstitutionService = async (institutionId: string) => {
 
     const myInds = await institutionRepository.find({
         where: { id: institutionId },
-        relations: { childrensIn: true, schedules: true, mother: true },
+        relations: {schedules:true },
     });
 
     const account = myInds.find(

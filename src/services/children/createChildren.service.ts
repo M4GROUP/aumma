@@ -45,7 +45,7 @@ export const createChildren_Service = async ({
     newChildren.genre = gender;
     newChildren.isPCD = with_disability;
     newChildren.mother = mother;
-    newChildren.institution = institution;
+   
 
     await ChildrenRepository.save(newChildren);
     ChildrenRepository.create(newChildren);

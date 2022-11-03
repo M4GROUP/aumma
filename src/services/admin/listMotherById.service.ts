@@ -7,7 +7,7 @@ const listMotherByIdService= async (motherId: string) => {
 
     const myMother = await mothersRepository.find({
         where: { id: motherId },
-        relations: {childrens:true, schedulesMother:true },
+        relations: {childrens:true},
     });
     return myMother;
 };
