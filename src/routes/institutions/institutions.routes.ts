@@ -2,10 +2,10 @@ import { Router } from "express";
 
 import createInstitutionController from "../../controllers/institution/createInstitution.controller";
 
-import ensureInstitutionAuthMiddleware from "../../middlewares/ensureAuthInstitution.middleware";
+import ensureInstitutionAuthMiddleware from "../../middlewares/institutions/ensureAuthInstitution.middleware";
 import getMyInstitutionsController from "../../controllers/institution/getMyInstitutions.controller";
 import deleteInstitutionController from "../../controllers/institution/deleteInstitution.controller";
-import ensureIsInstitutionMiddleware from "../../middlewares/ensureIsInstitution.middleware";
+import ensureIsInstitutionMiddleware from "../../middlewares/institutions/ensureIsInstitution.middleware";
 import updateInstitutionController from "../../controllers/institution/updateInstitution.controller";
 
 const routes = Router();
