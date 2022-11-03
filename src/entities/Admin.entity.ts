@@ -22,6 +22,9 @@ export class Admin {
     @Column()
     isAdm: boolean
 
+    @Column({default:true})
+    isActive: boolean
+
     @OneToMany((type) => Institution, (adminInstitutions) => adminInstitutions.admin)
     institutions: Institution[]
 

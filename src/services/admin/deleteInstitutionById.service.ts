@@ -1,17 +1,22 @@
 import AppDataSource from "../../data-source";
 import { Institution } from "../../entities/Institution.entity";
+import { AppError } from "../../errors/AppError";
 
-const deleteInstitutionService = async (institutionId: string) => {
+const deleteInstitutionByIdService = async (institutionId: string) => {
     const institutionRepository = AppDataSource.getRepository(Institution);
 
     const myInds = await institutionRepository.find({
         where: { id: institutionId },
-        relations: { childrensIn: true, schedules: true, mother: true },
     });
 
     const account = myInds.find(
         (institution) => institution.id === institutionId
     );
+    if (!account) {
+        throw new AppError(400, "Institution dont exist");
+    }
+
+    console.log("*****************", institutionId);
 
     const newActive = false;
 
@@ -20,4 +25,4 @@ const deleteInstitutionService = async (institutionId: string) => {
     return true;
 };
 
-export default deleteInstitutionService;
+export default deleteInstitutionByIdService;

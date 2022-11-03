@@ -3,6 +3,7 @@ export interface IAdmRequest {
     email: string
     password: string
     isAdm: boolean
+    isActive?: boolean
 }
 
 

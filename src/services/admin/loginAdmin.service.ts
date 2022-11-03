@@ -1,20 +1,16 @@
-import { IInstitutionLogin } from "../../interfaces/institutions";
 import AppDataSource from "../../data-source";
-import { Institution } from "../../entities/Institution.entity";
 import * as bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { AppError } from "../../errors/AppError";
+import { IAdmLogin } from "../../interfaces/admin";
+import { Admin } from "../../entities/Admin.entity";
 
-const institutionLoginService = async ({
-    email,
-    password,
-}: IInstitutionLogin) => {
-    const institutionRepository = AppDataSource.getRepository(Institution);
+const loginAdminService = async ({ email, password }: IAdmLogin) => {
+    const adminRepository = AppDataSource.getRepository(Admin);
+    const admin = await adminRepository.find();
 
-    const intitutions = await institutionRepository.find();
-
-    const account = intitutions.find(
-        (institution) => institution.email === email
+    const account = admin.find(
+        (admin) => admin.email === email
     );
 
     if (!account) {
@@ -38,4 +34,4 @@ const institutionLoginService = async ({
     return token;
 };
 
-export default institutionLoginService;
+export default loginAdminService;

@@ -1,7 +1,7 @@
 import AppDataSource from "../../data-source";
 import { Institution } from "../../entities/Institution.entity";
 
-const getMyInstitutionsService = async (institutionId: string) => {
+const listInstitutionByIdService= async (institutionId: string) => {
     const institutionsRepository = AppDataSource.getRepository(Institution);
 
     const myInds = await institutionsRepository.find({
@@ -11,4 +11,4 @@ const getMyInstitutionsService = async (institutionId: string) => {
     return myInds;
 };
 
-export default getMyInstitutionsService;
+export default listInstitutionByIdService;
