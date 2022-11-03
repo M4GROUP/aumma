@@ -26,11 +26,8 @@ const motherSerializer = yup.object().shape({
     name: yup.string().required(),
     address: yup.string().required(),
     phone: yup.number().required(),
-    email: yup.string().email().required(),
-    password: yup.string().required(),
-    cpf: yup.string().required(),
-    rg: yup.string().required(),
-    id: yup.string().required(),
+    password: yup.string().notRequired(),
+    id: yup.string().notRequired(),
     isActive: yup.boolean().isTrue().required()
 });
 

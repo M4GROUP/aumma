@@ -9,6 +9,7 @@ export const mockedMother: IMotherRequest = {
     password: "Laura123",
     cpf: "86101289521",
     rg: "2175690889",
+    isActive: true
 }
 
 export const mockedMotherLogin: IMotherLogin = {
@@ -23,6 +24,7 @@ export const mockedMotherNewValues = {
     cpf: "78901496390",
     rg: "9857870987",
     phone: 73988019679,
+    isActive: true
 }
 
 export const mockedMotherWithoutName: IMotherRequest = {
@@ -33,6 +35,7 @@ export const mockedMotherWithoutName: IMotherRequest = {
     password: "Laura123",
     cpf: "86101289521",
     rg: "2175690889",
+    isActive: true
 }
 
 export const mockedMotherWithoutAddress: IMotherRequest = {
@@ -53,6 +56,7 @@ export const mockedMotherWithoutTelephone: IMotherRequest = {
     password: "Laura123",
     cpf: "86101289521",
     rg: "2175690889",
+    isActive: true
 }
 
 export const mockedMotherWithoutEmail: IMotherRequest = {
@@ -63,6 +67,7 @@ export const mockedMotherWithoutEmail: IMotherRequest = {
     password: "Laura123",
     cpf: "86101289521",
     rg: "2175690889",
+    isActive: true
 }
 
 export const mockedMotherWithoutPassword: IMotherRequest = {
@@ -73,6 +78,7 @@ export const mockedMotherWithoutPassword: IMotherRequest = {
     password: "",
     cpf: "86101289521",
     rg: "2175690889",
+    isActive: true
 }
 
 export const mockedMotherWithoutCPF: IMotherRequest = {
@@ -83,6 +89,8 @@ export const mockedMotherWithoutCPF: IMotherRequest = {
     password: "Laura123",
     cpf: "",
     rg: "2175690889",
+    isActive: true
+
 }
 
 export const mockedMotherWithoutRg: IMotherRequest = {
@@ -93,4 +101,5 @@ export const mockedMotherWithoutRg: IMotherRequest = {
     password: "Laura123",
     cpf: "86101289521",
     rg: "",
+    isActive: true
 }

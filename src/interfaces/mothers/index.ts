@@ -10,9 +10,10 @@ export interface IMotherRequest {
     address: string
     phone: number
     email: string
-    password: string
+    password?: string
     cpf: string
     rg: string
+    isActive?: boolean
 }
 
 export interface IMother {
@@ -21,7 +22,7 @@ export interface IMother {
     address: string
     phone: number
     email: string
-    password: string
+    password?: string
     cpf: string
     rg: string
 }

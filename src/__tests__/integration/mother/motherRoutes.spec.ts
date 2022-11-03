@@ -170,11 +170,8 @@ describe("/mothers", () => {
         expect(response.body).toHaveProperty("email")
         expect(response.body).not.toHaveProperty("password")
         expect(response.body.name).toEqual(mockedMotherNewValues.name)
-        expect(response.body.email).toEqual(mockedMotherNewValues.email)
         expect(response.body.address).toEqual(mockedMotherNewValues.address)
         expect(response.body.phone).toEqual(mockedMotherNewValues.phone)
-        expect(response.body.cpf).toEqual(mockedMotherNewValues.cpf)
-        expect(response.body.rg).toEqual(mockedMotherNewValues.rg)        
         expect(response.status).toBe(200)
         
     })
@@ -212,9 +209,10 @@ describe("/mothers", () => {
     })
 
     test("PATCH /mothers/:id - should not be able to update isActive field value", async () => {
-        await request(app).post('/mothers').send(mockedMother)
 
-        const newValues = {isActive: false}
+        const newValues =      {
+            isActive: false
+        }
 
         const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
