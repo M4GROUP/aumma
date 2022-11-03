@@ -100,50 +100,50 @@ describe ("/institutions", () =>{
 
 
 
-    // test("DELETE /institutions/:id -  Must be able to soft delete institution by id",async () => {
-    //     await request(app).post('/institutions/login').send(mockedInstitutionLogin)
-    //     const intitutionLoginResponse = await request(app).post("/institutions/login").send(mockedInstitutionLogin);
-    //     const token = `Bearer ${intitutionLoginResponse.body.token}`
-    //     const id = intitutionLoginResponse.body.id_Institution
+    test("DELETE /institutions/:id -  Must be able to soft delete institution by id",async () => {
+        await request(app).post('/institutions/login').send(mockedInstitutionLogin)
+        const intitutionLoginResponse = await request(app).post("/institutions/login").send(mockedInstitutionLogin);
+        const token = `Bearer ${intitutionLoginResponse.body.token}`
+        const id = intitutionLoginResponse.body.id_Institution
         
-    //     const response = await request(app).patch(`/institutions/${id}`).set("Authorization",token)
-    //     const findUser = await request(app).get(`/institutions/${id}`).set("Authorization",token)
-    //     expect(response.status).toBe(204)
-    //     expect(findUser.body[0].isActive).toBe(false)
+        const response = await request(app).patch(`/institutions/${id}`).set("Authorization",token)
+        const findUser = await request(app).get(`/institutions/${id}`).set("Authorization",token)
+        expect(response.status).toBe(204)
+        expect(findUser.body[0].isActive).toBe(false)
      
-    // })
+    })
 
-    // test("DELETE /institutions/:id -  should not be able to delete institution without authentication",async () => {
-    //     const response = await request(app).delete(`/institutions/0ac51579-f72b-49e6-b7fc-10a2127af1c4`)
-    //     expect(response.body).toHaveProperty("message")
-    //     expect(response.status).toBe(401) 
+    test("DELETE /institutions/:id -  should not be able to delete institution without authentication",async () => {
+        const response = await request(app).delete(`/institutions/0ac51579-f72b-49e6-b7fc-10a2127af1c4`)
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(401) 
              
-    // })
+    })
 
-    // test("PATCH /institutions/:id -  should be able to update institutions",async () => {
-    //     await request(app).post('/institutions/login').send(mockedInstitutionLogin)
-    //     const intitutionLoginResponse = await request(app).post("/institutions/login").send(mockedInstitutionLogin);
-    //     const token = `Bearer ${intitutionLoginResponse.body.token}`
-    //     const id = intitutionLoginResponse.body.id_Institution
-    //     const newValues = {name: "Creche do Geovane"}
+    test("PATCH /institutions/:id -  should be able to update institutions",async () => {
+        await request(app).post('/institutions/login').send(mockedInstitutionLogin)
+        const intitutionLoginResponse = await request(app).post("/institutions/login").send(mockedInstitutionLogin);
+        const token = `Bearer ${intitutionLoginResponse.body.token}`
+        const id = intitutionLoginResponse.body.id_Institution
+        const newValues = {name: "Creche do Geovane"}
 
-    //     const response = await request(app).patch(`/institutions/${id}`).set("Authorization",token).send(newValues)
+        const response = await request(app).patch(`/institutions/${id}`).set("Authorization",token).send(newValues)
 
-    //     const userUpdated = await request(app).get(`/institutions/${id}`).set("Authorization",token)
-    //     expect(response.status).toBe(200)
-    //     expect(userUpdated.body[0].name).toEqual("Creche do Geovane")
-    // })
+        const userUpdated = await request(app).get(`/institutions/${id}`).set("Authorization",token)
+        expect(response.status).toBe(200)
+        expect(userUpdated.body[0].name).toEqual("Creche do Geovane")
+    })
     
-    // test("PATCH /institutions/:id - should not be able to update email field value",async () => {
-    //     await request(app).post('/institutions/login').send(mockedInstitutionLogin)
-    //     const intitutionLoginResponse = await request(app).post("/institutions/login").send(mockedInstitutionLogin);
-    //     const token = `Bearer ${intitutionLoginResponse.body.token}`
-    //     const id = intitutionLoginResponse.body.id_Institution
-    //     const newValues = {email: "geovaneReiDosDevs@gmail.com"}
-    //     const response = await request(app).patch(`/institutions/${id}`).set("Authorization",token).send(newValues)
-    //     expect(response.body).toHaveProperty("message")
-    //     expect(response.status).toBe(401)
-    // })
+    test("PATCH /institutions/:id - should not be able to update email field value",async () => {
+        await request(app).post('/institutions/login').send(mockedInstitutionLogin)
+        const intitutionLoginResponse = await request(app).post("/institutions/login").send(mockedInstitutionLogin);
+        const token = `Bearer ${intitutionLoginResponse.body.token}`
+        const id = intitutionLoginResponse.body.id_Institution
+        const newValues = {email: "geovaneReiDosDevs@gmail.com"}
+        const response = await request(app).patch(`/institutions/${id}`).set("Authorization",token).send(newValues)
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(401)
+    })
 
 })
 
