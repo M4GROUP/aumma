@@ -31,7 +31,7 @@ describe("Testing children's route", () => {
         const motherLoginResponse = await request(app)
             .post("/login/mothers")
             .send(mockedMotherLogin);
-        token = `Bearer ${motherLoginResponse.body.token}`;
+        const token = `Bearer ${motherLoginResponse.body.token}`;
 
         const resultChildren = await request(app)
             .post("/children")
