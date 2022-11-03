@@ -4,15 +4,15 @@ import { Mother } from "../../entities/Mother.entity";
 import { IMother } from "../../interfaces/mothers";
 import { instanceToInstance } from "class-transformer";
 
-const listOneMotherService = async (id: string): Promise<IMother> => {
+const listOneMotherService = async (id: string) => {
 
     const motherRepository = AppDataSource.getRepository(Mother);
     
-    const mother = await motherRepository.findOneBy({id});
+    const mother = await motherRepository.find({where: {id:id}, relations: {childrens: true, schedulesMother:true}});
 
     // if(!mother){ throw new AppError(400, 'User Not found')};
 
-    return instanceToInstance(mother!);
+    return mother;
 
 }
 
