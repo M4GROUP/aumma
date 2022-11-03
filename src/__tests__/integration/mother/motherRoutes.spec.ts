@@ -34,15 +34,12 @@ describe("/mothers", () => {
         expect(response.body).toHaveProperty("email")
         expect(response.body).toHaveProperty("cpf")
         expect(response.body).toHaveProperty("rg")
-        expect(response.body).toHaveProperty("schedules")
-        expect(response.body).toHaveProperty("childrens")
-        expect(response.body).toHaveProperty("institutions")
         expect(response.body).not.toHaveProperty("password")
         expect(response.body.name).toEqual("Laura Mendes Freitas")
         expect(response.body.address).toEqual("Rua do Antônio Marcos Andrade, 70 - Morumbi - São Paulo/SP")
         expect(response.body.phone).toEqual(27988440837)
         expect(response.body.email).toEqual("laura@mail.com")
-        expect(response.body.cpf).toEqual("Laura123")
+        expect(response.body.cpf).toEqual("86101289521")
         expect(response.body.rg).toEqual("2175690889")
         expect(response.status).toBe(201)
 
@@ -93,15 +90,17 @@ describe("/mothers", () => {
        
     })
 
-    test("GET /mothers:id -  Must be able to list one mother", async () => {
+    test("GET /mothers/:id -  Must be able to list one mother", async () => {
         
         await request(app).post('/mothers').send(mockedMother)
 
-        const motherLoginResponse = await request(app).post("/login/mothers").send(mockedMotherLogin)
+        const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
         const token = `Bearer ${motherLoginResponse.body.token}`
 
-        const response = await request(app).get("/mothers:id").set("Authorization", `Bearer ${token}`)
+        const motherId = motherLoginResponse.body.motherId
+
+        const response = await request(app).get(`/mothers/${motherId}`).set("Authorization", token)
 
         expect(response.body).toHaveProperty("id")
         expect(response.body).toHaveProperty("name")
@@ -110,31 +109,58 @@ describe("/mothers", () => {
         expect(response.body).toHaveProperty("email")
         expect(response.body).toHaveProperty("cpf")
         expect(response.body).toHaveProperty("rg")
-        expect(response.body).toHaveProperty("schedules")
-        expect(response.body).toHaveProperty("childrens")
-        expect(response.body).toHaveProperty("institutions")
         expect(response.body).not.toHaveProperty("password")
         expect(response.body.name).toEqual("Laura Mendes Freitas")
         expect(response.body.address).toEqual("Rua do Antônio Marcos Andrade, 70 - Morumbi - São Paulo/SP")
         expect(response.body.phone).toEqual(27988440837)
         expect(response.body.email).toEqual("laura@mail.com")
-        expect(response.body.cpf).toEqual("Laura123")
+        expect(response.body.cpf).toEqual("86101289521")
         expect(response.body.rg).toEqual("2175690889")
         expect(response.status).toBe(200)
 
     })
 
-    test("PATCH /mothers/:id -  should be able to update mother", async () => {
+    test("GET /mothers/:id - should not be able to list one mother with invalid id",async () => {
 
-        const motherLoginResponse = await request(app).post("/login/mothers").send(mockedMotherLogin)
+        const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
         const token = `Bearer ${motherLoginResponse.body.token}`
 
-        const motherTobeUpdateRequest = await request(app).get("/mothers/:id").set("Authorization", token)
+        const response = await request(app).get(`/mothers/13970660-5dbe-423a-9a9d-5c23b37943cf`).set("Authorization",token).send(mockedMotherNewValues)
 
-        const motherTobeUpdateId = motherTobeUpdateRequest.body.id
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(404)
 
-        const response = await request(app).patch(`/mothers/${motherTobeUpdateId}`).set("Authorization", token).send(mockedMotherNewValues)
+    })
+
+    test("GET /mothers/:id - should not be able to list one mother without authentication",async () => {
+
+        const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
+
+        const token = `Bearer ${motherLoginResponse.body.token}`
+
+        const motherRequest = await request(app).get("/mothers").set("Authorization", token)
+
+        const motherId = motherLoginResponse.body.motherId
+
+        const response = await request(app).get(`/mothers/${motherId}`)
+
+        expect(response.body).toHaveProperty("message")
+        expect(response.status).toBe(401)
+
+    })
+
+    test("PATCH /mothers/:id -  should be able to update mother", async () => {
+
+        const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
+
+        const token = `Bearer ${motherLoginResponse.body.token}`
+
+        const motherRequest = await request(app).get("/mothers").set("Authorization", token)
+
+        const motherId = motherLoginResponse.body.motherId
+
+        const response = await request(app).patch(`/mothers/${motherId}`).set("Authorization", token).send(mockedMotherNewValues)
 
         expect(response.body).toHaveProperty("id")
         expect(response.body).toHaveProperty("rg")
@@ -154,15 +180,19 @@ describe("/mothers", () => {
 
     test("PATCH /mothers/:id -  should not be able to update mother without authentication",async () => {
 
-        const motherLoginResponse = await request(app).post("/login/mothers").send(mockedMotherLogin)
+        await request(app).post('/mothers').send(mockedMother)
+
+        const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
         const token = `Bearer ${motherLoginResponse.body.token}`
 
-        const motherTobeUpdateRequest = await request(app).get("/mothers/:id").set("Authorization", token)
+        const motherRequest = await request(app).get("/mothers").set("Authorization", token)
 
-        const motherTobeUpdateId = motherTobeUpdateRequest.body.id
+        console.log(motherLoginResponse.body.motherId)
 
-        const response = await request(app).patch(`/mothers/${motherTobeUpdateId}`)
+        const motherId = motherLoginResponse.body.motherId
+
+        const response = await request(app).patch(`/mothers/${motherId}`)
 
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(401)
@@ -171,7 +201,7 @@ describe("/mothers", () => {
 
     test("PATCH /mothers/:id - should not be able to update mother with invalid id",async () => {
 
-        const motherLoginResponse = await request(app).post("/login/mothers").send(mockedMotherLogin)
+        const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
         const token = `Bearer ${motherLoginResponse.body.token}`
 
@@ -186,15 +216,15 @@ describe("/mothers", () => {
 
         const newValues = {isActive: false}
 
-        const motherLoginResponse = await request(app).post("/login/mothers").send(mockedMotherLogin)
+        const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
         const token = `Bearer ${motherLoginResponse.body.token}`
+
+        const motherRequest = await request(app).get("/mothers").set("Authorization", token)
+
+        const motherId = motherLoginResponse.body.motherId
         
-        const motherTobeUpdateRequest = await request(app).get("/mothers/:id").set("Authorization", token)
-
-        const motherTobeUpdateId = motherTobeUpdateRequest.body.id
-
-        const response = await request(app).patch(`/users/${motherTobeUpdateId}`).set("Authorization",token).send(newValues)
+        const response = await request(app).patch(`/users/${motherId}`).set("Authorization",token).send(newValues)
     
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(401)
@@ -205,15 +235,13 @@ describe("/mothers", () => {
         
         const newValues = {id: false}
 
-        const motherLoginResponse = await request(app).post("/login/mothers").send(mockedMotherLogin)
+        const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
         const token = `Bearer ${motherLoginResponse.body.token}`
-        
-        const motherTobeUpdateRequest = await request(app).get("/mothers/:id").set("Authorization", token)
 
-        const motherTobeUpdateId = motherTobeUpdateRequest.body.id
+        const motherId = motherLoginResponse.body.motherId
 
-        const response = await request(app).patch(`/users/${motherTobeUpdateId}`).set("Authorization",token).send(newValues)
+        const response = await request(app).patch(`/users/${motherId}`).set("Authorization",token).send(newValues)
 
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(401)
@@ -224,18 +252,17 @@ describe("/mothers", () => {
       
         await request(app).post('/mothers').send(mockedMother)
 
-        const motherLoginResponse = await request(app).post("/login/mothers").send(mockedMotherLogin)
+        const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
         const token = `Bearer ${motherLoginResponse.body.token}`
 
-        const motherTobeDeleted = await request(app).get("/mothers/:id").set("Authorization", token)
+        const motherRequest = await request(app).get("/mothers").set("Authorization", token)
 
-        const motherTobeUpdateId = motherTobeDeleted.body.id
-
-        const response = await request(app).delete(`/mothers/${motherTobeUpdateId}`).set("Authorization", `Bearer ${token}`)
-
-        const findMother = await request(app).get("/mothers/:id").set("Authorization", token)
-
+        const motherId = motherLoginResponse.body.motherId
+        const response = await request(app).delete(`/mothers/${motherId}`).set("Authorization", token)
+        
+        const findMother = await request(app).get(`/mothers/${motherId}`).set("Authorization", token)
+        
         expect(response.status).toBe(204)
         expect(findMother.body.isActive).toBe(false)
      
@@ -243,15 +270,15 @@ describe("/mothers", () => {
 
     test("DELETE /mothers/:id -  should not be able to delete mother without authentication",async () => {
       
-        const motherLoginResponse = await request(app).post("/login/mothers").send(mockedMotherLogin)
+        const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
         const token = `Bearer ${motherLoginResponse.body.token}`
 
-        const motherTobeDeleted = await request(app).get("/mothers/:id").set("Authorization", token)
+        const motherRequest = await request(app).get("/mothers").set("Authorization", token)
 
-        const motherTobeUpdateId = motherTobeDeleted.body.id
+        const motherId = motherLoginResponse.body.motherId
 
-        const response = await request(app).delete(`/mothers/${motherTobeUpdateId}`)
+        const response = await request(app).delete(`/mothers/${motherId}`)
 
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(401)
@@ -262,11 +289,11 @@ describe("/mothers", () => {
 
         await request(app).post('/mothers').send(mockedMother)
 
-        const motherLoginResponse = await request(app).post("/login/mothers").send(mockedMotherLogin)
+        const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
         
         const token = `Bearer ${motherLoginResponse.body.token}`
 
-        const response = await request(app).delete(`/users/13970660-5dbe-423a-9a9d-5c23b37943cf`).set("Authorization", token)
+        const response = await request(app).delete(`/mothers/13970660-5dbe-423a-9a9d-5c23b37943cf`).set("Authorization", token)
        
         expect(response.status).toBe(404)
         expect(response.body).toHaveProperty("message")
@@ -277,15 +304,13 @@ describe("/mothers", () => {
 
         await request(app).post('/mothers').send(mockedMother)
 
-        const motherLoginResponse = await request(app).post("/login/mothers").send(mockedMotherLogin)
+        const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
         const token = `Bearer ${motherLoginResponse.body.token}`
 
-        const motherTobeDeleted = await request(app).get("/mothers/:id").set("Authorization", token)
+        const motherId = motherLoginResponse.body.motherId
 
-        const motherTobeUpdateId = motherTobeDeleted.body.id
-
-        const response = await request(app).delete(`/mothers/${motherTobeUpdateId}`).set("Authorization", `Bearer ${token}`)
+        const response = await request(app).delete(`/mothers/${motherId}`).set("Authorization", `Bearer ${token}`)
 
         expect(response.status).toBe(400)
         expect(response.body).toHaveProperty("message")

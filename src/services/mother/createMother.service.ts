@@ -6,10 +6,7 @@ import { Mother } from "../../entities/Mother.entity";
 
 const createMotherService = async (motherRequest: IMotherRequest): Promise<IMother> => {
 
-    const {
-        address, cpf, email, name,
-        password, rg, phone
-    } = motherRequest;
+    const { address, cpf, email, name, password, rg, phone } = motherRequest;
 
     const motherRepository = AppDataSource.getRepository(Mother);
 
@@ -19,6 +16,8 @@ const createMotherService = async (motherRequest: IMotherRequest): Promise<IMoth
         address, cpf, name, email, 
         password: hashedPassword, rg, phone
     });
+
+    mother.isActive = true
 
     await motherRepository.save(mother);
 

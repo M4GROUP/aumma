@@ -1,21 +1,19 @@
 import { Request, Response, NextFunction } from "express";
 import AppDataSource from "../../data-source";
 import { Mother } from "../../entities/Mother.entity";
-import { AppError, handleError } from "../../errors/AppError";
+import { AppError } from "../../errors/AppError";
 
-const verifyExistsMother = async (req: Request, res: Response, next: NextFunction) => {
-
+const ensureMotherIsActive = async (req: Request, res: Response, next: NextFunction) => {
+    
     try {
         
-        const email = req.body.email;
+        const id = req.params.id;
 
         const motherRepository = AppDataSource.getRepository(Mother);
 
-        if(!email){throw new AppError(400, 'E-mail is missing')};
+        const mother = await motherRepository.findOneBy({id});
 
-        const mother = await motherRepository.findOneBy({email});
-
-        if (!mother) {throw new AppError(400,"Email already exists")};
+        if(!mother?.isActive){throw new AppError(401, "User not active")};
 
         return next();
 
@@ -31,4 +29,4 @@ const verifyExistsMother = async (req: Request, res: Response, next: NextFunctio
 
 };
 
-export default verifyExistsMother;
+export default ensureMotherIsActive;

@@ -33,6 +33,9 @@ export class Mother {
     @Column({length: 128, unique: true})
     rg: string
 
+    @Column()
+    isActive: boolean;
+
     @OneToMany((type) => Childrens, (childrensMother) => childrensMother.mother)
     childrens: Childrens[]
 
