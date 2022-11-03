@@ -37,9 +37,6 @@ export class Schedules {
     @ManyToOne((type) => Institution, (institutionsSchedules) => institutionsSchedules.schedules)
     institution: Institution
 
-    @ManyToOne((type) => Mother, (motherSchedules) => motherSchedules.schedulesMother)
-    mother: Mother
-
     @ManyToOne((type) => Admin, (motherSchedules) => motherSchedules.schedules)
     admin: Admin
 
