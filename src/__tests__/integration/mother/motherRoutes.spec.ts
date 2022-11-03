@@ -8,9 +8,10 @@ import {
 } from "../../mocks/mother";
 
 describe("/mothers", () => {
+    
     let connection: DataSource
 
-    beforeAll(async()=> {
+    beforeAll( async ()=> {
         await AppDataSource.initialize().then((res) => {
             connection = res
         }).catch((err) => {
@@ -19,7 +20,7 @@ describe("/mothers", () => {
         
     })
 
-    afterAll(async() => {
+    afterAll( async () => {
         await connection.destroy()
     })
 
@@ -45,7 +46,7 @@ describe("/mothers", () => {
 
     })
 
-    test("POST /mothers -  should not be able to create a mother that already exists",async () => {
+    test("POST /mothers -  should not be able to create a mother that already exists", async () => {
 
         const response = await request(app).post('/mothers').send(mockedMother)
 
@@ -54,7 +55,7 @@ describe("/mothers", () => {
     
     })
 
-    test("POST /mothers -  should not be able to create a mother whitout CPF",async () => {
+    test("POST /mothers -  should not be able to create a mother whitout CPF", async () => {
 
         const response = await request(app).post('/mothers').send(mockedMotherWithoutCPF)
 
@@ -63,7 +64,7 @@ describe("/mothers", () => {
        
     })
 
-    test("POST /mothers -  should not be able to create a mother whitout name",async () => {
+    test("POST /mothers -  should not be able to create a mother whitout name", async () => {
 
         const response = await request(app).post('/mothers').send(mockedMotherWithoutName)
 
@@ -72,7 +73,7 @@ describe("/mothers", () => {
        
     })
 
-    test("POST /mothers -  should not be able to create a mother whitout email",async () => {
+    test("POST /mothers -  should not be able to create a mother whitout email", async () => {
 
         const response = await request(app).post('/mothers').send(mockedMotherWithoutEmail)
         
@@ -81,7 +82,7 @@ describe("/mothers", () => {
        
     })
 
-    test("POST /mothers -  should not be able to create a mother whitout password",async () => {
+    test("POST /mothers -  should not be able to create a mother whitout password", async () => {
 
         const response = await request(app).post('/mothers').send(mockedMotherWithoutPassword)
         
@@ -120,7 +121,7 @@ describe("/mothers", () => {
 
     })
 
-    test("GET /mothers/:id - should not be able to list one mother with invalid id",async () => {
+    test("GET /mothers/:id - should not be able to list one mother with invalid id", async () => {
 
         const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
@@ -133,7 +134,7 @@ describe("/mothers", () => {
 
     })
 
-    test("GET /mothers/:id - should not be able to list one mother without authentication",async () => {
+    test("GET /mothers/:id - should not be able to list one mother without authentication", async () => {
 
         const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
@@ -169,16 +170,13 @@ describe("/mothers", () => {
         expect(response.body).toHaveProperty("email")
         expect(response.body).not.toHaveProperty("password")
         expect(response.body.name).toEqual(mockedMotherNewValues.name)
-        expect(response.body.email).toEqual(mockedMotherNewValues.email)
         expect(response.body.address).toEqual(mockedMotherNewValues.address)
         expect(response.body.phone).toEqual(mockedMotherNewValues.phone)
-        expect(response.body.cpf).toEqual(mockedMotherNewValues.cpf)
-        expect(response.body.rg).toEqual(mockedMotherNewValues.rg)        
         expect(response.status).toBe(200)
         
     })
 
-    test("PATCH /mothers/:id -  should not be able to update mother without authentication",async () => {
+    test("PATCH /mothers/:id -  should not be able to update mother without authentication", async () => {
 
         await request(app).post('/mothers').send(mockedMother)
 
@@ -197,7 +195,7 @@ describe("/mothers", () => {
              
     })
 
-    test("PATCH /mothers/:id - should not be able to update mother with invalid id",async () => {
+    test("PATCH /mothers/:id - should not be able to update mother with invalid id", async () => {
 
         const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
@@ -210,23 +208,25 @@ describe("/mothers", () => {
 
     })
 
-    test("PATCH /mothers/:id - should not be able to update isActive field value",async () => {
+    test("PATCH /mothers/:id - should not be able to update isActive field value", async () => {
 
-        const newValues = {isActive: false}
+        const newValues =      {
+            isActive: false
+        }
 
         const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
         const token = `Bearer ${motherLoginResponse.body.token}`
         const motherId = motherLoginResponse.body.motherId
         
-        const response = await request(app).patch(`/users/${motherId}`).set("Authorization",token).send(newValues)
+        const response = await request(app).patch(`/mothers/${motherId}`).set("Authorization",token).send(newValues)
     
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(401)
 
     })
 
-    test("PATCH /mothers/:id - should not be able to update id field value",async () => {
+    test("PATCH /mothers/:id - should not be able to update id field value", async () => {
         
         const newValues = {id: false}
 
@@ -236,14 +236,14 @@ describe("/mothers", () => {
 
         const motherId = motherLoginResponse.body.motherId
 
-        const response = await request(app).patch(`/users/${motherId}`).set("Authorization",token).send(newValues)
+        const response = await request(app).patch(`/mothers/${motherId}`).set("Authorization",token).send(newValues)
 
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(401)
 
     })
 
-    test("DELETE /mothers/:id -  Must be able to soft delete mother",async () => {
+    test("DELETE /mothers/:id -  Must be able to soft delete mother", async () => {
       
         await request(app).post('/mothers').send(mockedMother)
 
@@ -263,7 +263,7 @@ describe("/mothers", () => {
      
     })
 
-    test("DELETE /mothers/:id -  should not be able to delete mother without authentication",async () => {
+    test("DELETE /mothers/:id -  should not be able to delete mother without authentication", async () => {
       
         const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
@@ -280,7 +280,7 @@ describe("/mothers", () => {
              
     })
 
-    test("DELETE /mothers/:id -  should not be able to delete mother with invalid id",async () => {
+    test("DELETE /mothers/:id -  should not be able to delete mother with invalid id", async () => {
 
         await request(app).post('/mothers').send(mockedMother)
 
@@ -295,7 +295,7 @@ describe("/mothers", () => {
      
     })
 
-    test("DELETE /mothers/:id -  shouldn't be able to delete mother with isActive = false",async () => {
+    test("DELETE /mothers/:id -  shouldn't be able to delete mother with isActive = false", async () => {
 
         await request(app).post('/mothers').send(mockedMother)
 

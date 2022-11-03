@@ -11,6 +11,7 @@ import ensureExistsMother from "../../middlewares/mothers/ensureExistsMother.mid
 import ensurePassword from "../../middlewares/mothers/ensurePassword.middleware";
 import ensureAuthMother from "../../middlewares/mothers/ensureAuthMother.middleware";
 import ensureMotherIsActive from "../../middlewares/mothers/ensureMotherIsActive.middleware";
+import ensureIsActiveFalse from "../../middlewares/mothers/ensureIsActiveFalse.middleware";
 
 const routes = Router();
 
@@ -19,7 +20,7 @@ const motherRouter = () => {
     routes.post("", ensurePassword, ensureExistsMother, createMotherController);
     routes.get("", ensureAuthMother, listMothersController);
     routes.get("/:id", ensureAuthMother, ensureMotherId, listOneMotherController);
-    routes.patch("/:id", ensureAuthMother, ensureMotherId, ensureMotherIsActive, updateMotherController);
+    routes.patch("/:id", ensureAuthMother, ensureMotherId, ensureMotherIsActive, ensureIsActiveFalse ,updateMotherController);
     routes.delete("/:id",  ensureAuthMother, ensureMotherId, ensureMotherIsActive , deleteMotherController);
     
     return routes;

@@ -9,7 +9,7 @@ export const mockedMother: IMotherRequest = {
     password: "Laura123",
     cpf: "86101289521",
     rg: "2175690889",
-    isActive:true
+    isActive: true
 }
 
 export const mockedMotherLogin: IMotherLogin = {
@@ -46,7 +46,6 @@ export const mockedMotherWithoutAddress: IMotherRequest = {
     password: "Laura123",
     cpf: "86101289521",
     rg: "2175690889",
-    isActive: true
 }
 
 export const mockedMotherWithoutTelephone: IMotherRequest = {
@@ -91,6 +90,7 @@ export const mockedMotherWithoutCPF: IMotherRequest = {
     cpf: "",
     rg: "2175690889",
     isActive: true
+
 }
 
 export const mockedMotherWithoutRg: IMotherRequest = {
