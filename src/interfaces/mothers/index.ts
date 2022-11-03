@@ -13,7 +13,6 @@ export interface IMotherRequest {
     password: string
     cpf: string
     rg: string
-    isActive: boolean
 }
 
 export interface IMother {
