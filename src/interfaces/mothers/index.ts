@@ -1,3 +1,6 @@
+import { Childrens } from "../../entities/Childrens.entity"
+import { Institution } from "../../entities/Institution.entity"
+import { Schedules } from "../../entities/Schedules.entity"
 import { IChildrenRequest } from "../childrens"
 import { IInstitutionRequest } from "../institutions"
 import { IScheduleRequest } from "../schedules"

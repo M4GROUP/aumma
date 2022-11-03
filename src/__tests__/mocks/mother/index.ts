@@ -12,7 +12,7 @@ export const mockedMother: IMotherRequest = {
 
 export const mockedMotherLogin: IMotherLogin = {
     email: "laura@mail.com",
-    password: "Laura123",
+    password: "Laura123"
 }
 
 export const mockedMotherNewValues = {

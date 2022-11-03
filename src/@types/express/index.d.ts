@@ -14,7 +14,7 @@ declare global {
                 isAdm:boolean
             },
             mother:{
-                id:string
+                sub:string
             }
         }
     }

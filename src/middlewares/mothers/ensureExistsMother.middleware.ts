@@ -14,16 +14,15 @@ const ensureExistsMother = async (req: Request, res: Response, next: NextFunctio
 
 
         if(!email){throw new AppError(400, 'E-mail is missing')};
-        const emailAlreadyExists = mothers.find(mother => mother.email === email);
-
-
-        const mother = await motherRepository.findOneBy({email});
-
-        if (mother) {throw new AppError(400,"Email already exists")};
+      
+      
+          const emailAlreadyExists = mothers.find(mother => mother.email === email);
+        
+        if (emailAlreadyExists) {throw new AppError(400,"Email already exists")};
 
         return next();
 
-    } catch (error) {
+    } catch (error) {   
         
         if(error instanceof AppError) {
 

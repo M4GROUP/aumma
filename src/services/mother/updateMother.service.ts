@@ -3,6 +3,7 @@ import { hash } from "bcryptjs";
 import AppDataSource from "../../data-source";
 import { Mother } from "../../entities/Mother.entity";
 import { IMother, IMotherRequest } from "../../interfaces/mothers";
+import { AppError } from "../../errors/AppError";
 
 const updateMotherService = async (id: string, motherRequest: IMotherRequest): Promise<IMother> => {
     
@@ -23,9 +24,9 @@ const updateMotherService = async (id: string, motherRequest: IMotherRequest): P
 
     const updatedUser = instanceToInstance(await motherRepository.findOneBy({id}));
 
-    console.log(updatedUser)
+    if(!updatedUser){throw new AppError(401, "Invalid id")};
 
-    return updatedUser!
+    return updatedUser
 
 }
 
