@@ -18,6 +18,7 @@ export const institutionsRoutes = () => {
     routes.post("/", createInstitutionController)
     routes.get("/:id",ensureInstitutionAuthMiddleware,ensureIsInstitutionMiddleware, getMyInstitutionsController)
     routes.post("/login", institutionLoginController)
-
+    routes.patch("/:id",ensureInstitutionAuthMiddleware, updateInstitutionController)
+    routes.delete("/:id", ensureInstitutionAuthMiddleware, deleteInstitutionController)
     return routes
 }
