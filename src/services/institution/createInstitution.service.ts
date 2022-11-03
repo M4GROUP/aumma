@@ -21,7 +21,7 @@ const createInstitutionService = async ({
     (institution) => institution.cnpj === cnpj
   );
   if (institutionAlreadyExists) {
-    throw new AppError(409, "Institution CNPJ already exists, try a new one");
+    throw new AppError(404, "Institution CNPJ already exists, try a new one");
   }
 
   const institutionEmailAlreadyExists = institutions.find(
