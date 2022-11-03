@@ -25,9 +25,6 @@ export class Childrens {
     @ManyToOne((type) => Mother, (motherChildrens) => motherChildrens.childrens)
     mother: Mother
 
-    @ManyToMany((type) => Institution, (childrensInInstitution) => childrensInInstitution.childrensIn)
-    institution: Institution[]
-
     @ManyToOne((type) => Admin, (adminChildrens) => adminChildrens.childrens)
     admin: Admin
 
