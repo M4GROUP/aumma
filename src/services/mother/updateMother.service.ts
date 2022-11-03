@@ -6,6 +6,13 @@ import { IMother, IMotherRequest } from "../../interfaces/mothers";
 import { AppError } from "../../errors/AppError";
 import { motherSerializer, updateMotherSerializer } from "../../serializers/mothers/mother.serializer";
 
+const updateMotherService = async (
+    id: string,
+    motherRequest: IMotherRequest
+): Promise<IMother> => {
+    const { address, cpf, email, name, password, phone, isActive, rg } =
+        motherRequest;
+
 const updateMotherService = async (id: string, motherRequest: IMotherRequest): Promise<IMother> => {
     
     const {address, cpf, email, name, password, phone,  rg} = motherRequest;
@@ -16,8 +23,8 @@ const updateMotherService = async (id: string, motherRequest: IMotherRequest): P
     // })
 
     const motherRepository = AppDataSource.getRepository(Mother);
-    
-    const mother = await motherRepository.findOneBy({id});
+
+    const mother = await motherRepository.findOneBy({ id });
 
     const updateSerialized = await updateMotherSerializer.validate(mother!, {
         abortEarly: true,
@@ -52,5 +59,8 @@ const updateMotherService = async (id: string, motherRequest: IMotherRequest): P
     return updatedUser;
 
 }
+
+    return updatedUser;
+};
 
 export default updateMotherService;

@@ -7,7 +7,7 @@
 <li class="has-line-data" data-line-start="11" data-line-end="12">Yup;</li>
 <li class="has-line-data" data-line-start="12" data-line-end="13">Uuid;</li>
 <li class="has-line-data" data-line-start="13" data-line-end="14">JsonWebToken;</li>
-<li class="has-line-data" data-line-start="14" data-line-end="15">Jester;</li>
+<li class="has-line-data" data-line-start="14" data-line-end="15">Jest;</li>
 <li class="has-line-data" data-line-start="15" data-line-end="16">PostgreSQL;</li>
 <li class="has-line-data" data-line-start="16" data-line-end="18">Express;</li>
 </ul>
