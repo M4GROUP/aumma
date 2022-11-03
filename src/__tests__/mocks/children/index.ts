@@ -5,8 +5,8 @@ export const childrenData:IChildrenRequest = {
     gender: "Feminino",
     name: "Maya",
     with_disability: false,
-    motherId: "1",
-    institutionsId: "1",
+    motherId: "4f9580f9-d900-4834-8d3e-58f22514cb28",
+    institutionsId: "0ac51579-f72b-49e6-b7fc-10a2127af1c4",
     
 }
 
@@ -15,7 +15,7 @@ export const childrenDisabilityData:IChildrenRequest = {
     gender: "Masculino",
     name: "Gael",
     with_disability: true,
-    motherId: "2",
-    institutionsId: "1"
+    motherId: "4f9580f9-d900-4834-8d3e-58f22514cb28",
+    institutionsId:"0ac51579-f72b-49e6-b7fc-10a2127af1c4"
     
 }
