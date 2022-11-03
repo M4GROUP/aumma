@@ -38,3 +38,8 @@ export const mockedNotAdminLogin : IAdmLogin = {
     email: "jose@mail.com",
     password: "123456789"
 }
+
+export const mockedWrongAdminLogin : IAdmLogin = {
+    email: "jose@mail.com",
+    password: "554433"
+}
