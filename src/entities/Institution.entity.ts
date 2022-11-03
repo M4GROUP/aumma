@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, ManyToMany } from "typeorm"
 
 import { Schedules } from "./Schedules.entity"
 import { Childrens } from "./Childrens.entity"
@@ -40,10 +40,10 @@ export class Institution {
     @OneToMany((type) => Schedules, (schedulesInstitutions) => schedulesInstitutions.institution )
     schedules: Schedules[]
    
-    @OneToMany((type) => Childrens, (childrensInInstitutions) => childrensInInstitutions.institution)
+    @ManyToMany((type) => Childrens, (childrensInInstitutions) => childrensInInstitutions.institution)
     childrensIn: Childrens[]
 
-    @OneToMany((type) => Mother, (motherInstitution) => motherInstitution.institutionsMother)
+    @ManyToMany((type) => Mother, (motherInstitution) => motherInstitution.institutionsMother)
     mother: Mother[]
 
     @ManyToOne((type) => Admin, (adminInstitutions) => adminInstitutions.institutions)
