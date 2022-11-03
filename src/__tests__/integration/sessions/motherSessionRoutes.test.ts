@@ -15,21 +15,21 @@ describe("/login/mothers", () => {
             console.error("Error during Data Source initialization", err)
         })
 
-        await request(app).post('/users').send(mockedMother)
+        await request(app).post('/mothers').send(mockedMother)
     })
     afterAll(async () => {
         await connection.destroy()
     })
 
-    test("POST /login/mothers -  should be able to login with the mother", async () => {
-        const response = await request(app).post("/login/mothers").send(mockedMotherLogin)
+    test("POST /mothers/login -  should be able to login with the mother", async () => {
+        const response = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
         expect(response.body).toHaveProperty("token")
         expect(response.status).toBe(200)
     })
 
-    test("POST /login/mothers -  should not be able to login with the mother with incorrect password or email",async () => {
-        const response = await request(app).post("/login").send({
+    test("POST /mothers/login  -  should not be able to login with the mother with incorrect password or email",async () => {
+        const response = await request(app).post("/mothers/login").send({
             email: "maria@mail.com",
             password: "1234567"
         });

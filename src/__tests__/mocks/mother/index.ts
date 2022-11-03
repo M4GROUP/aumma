@@ -11,8 +11,8 @@ export const mockedMother: IMotherRequest = {
 }
 
 export const mockedMotherLogin: IMotherLogin = {
-    name: "Laura Mendes Freitas",
-    password: "Laura123",
+    email: "laura@mail.com",
+    password: "Laura123"
 }
 
 export const mockedMotherNewValues = {
