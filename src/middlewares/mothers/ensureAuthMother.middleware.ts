@@ -15,7 +15,6 @@ const ensureAuthMother = async (req: Request, res: Response, next: NextFunction)
         jwt.verify(token, process.env.SECRET_KEY as string, (error, decoded: any) => {
             
             if(error){
-                console.log('iunu')
                 throw new AppError(401, 'Invalid Token')
             };
 

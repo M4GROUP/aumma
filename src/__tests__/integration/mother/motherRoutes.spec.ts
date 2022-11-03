@@ -188,8 +188,6 @@ describe("/mothers", () => {
 
         const motherRequest = await request(app).get("/mothers").set("Authorization", token)
 
-        console.log(motherLoginResponse.body.motherId)
-
         const motherId = motherLoginResponse.body.motherId
 
         const response = await request(app).patch(`/mothers/${motherId}`)
@@ -219,9 +217,6 @@ describe("/mothers", () => {
         const motherLoginResponse = await request(app).post("/mothers/login").send(mockedMotherLogin)
 
         const token = `Bearer ${motherLoginResponse.body.token}`
-
-        const motherRequest = await request(app).get("/mothers").set("Authorization", token)
-
         const motherId = motherLoginResponse.body.motherId
         
         const response = await request(app).patch(`/users/${motherId}`).set("Authorization",token).send(newValues)
@@ -310,7 +305,7 @@ describe("/mothers", () => {
 
         const motherId = motherLoginResponse.body.motherId
 
-        const response = await request(app).delete(`/mothers/${motherId}`).set("Authorization", `Bearer ${token}`)
+        const response = await request(app).delete(`/mothers/${motherId}`).set("Authorization", token)
 
         expect(response.status).toBe(400)
         expect(response.body).toHaveProperty("message")

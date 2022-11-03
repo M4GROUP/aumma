@@ -4,7 +4,6 @@ import listOneMotherService from "../../services/mother/listOneMother.service";
 const listOneMotherController = async (req: Request, res: Response) => {
 
     const id: string = req.params.id;
-    console.log(id)
 
     const mother = await listOneMotherService(id);
 
