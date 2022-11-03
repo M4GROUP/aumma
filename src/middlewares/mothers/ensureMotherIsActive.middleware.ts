@@ -13,7 +13,7 @@ const ensureMotherIsActive = async (req: Request, res: Response, next: NextFunct
 
         const mother = await motherRepository.findOneBy({id});
 
-        if(!mother?.isActive){throw new AppError(401, "User not active")};
+        if(!mother?.isActive){throw new AppError(400, "User not active")};
 
         return next();
 
