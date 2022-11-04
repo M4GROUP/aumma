@@ -2,20 +2,22 @@ import AppDataSource from "../../data-source";
 import { Institution } from "../../entities/Institution.entity";
 
 const deleteInstitutionService = async (institutionId: string) => {
-  const institutionRepository = AppDataSource.getRepository(Institution);
-    
+    const institutionRepository = AppDataSource.getRepository(Institution);
+
     const myInds = await institutionRepository.find({
-      where:{id:institutionId},
-       relations: {childrensIn:true,schedules:true,mother:true}
-    })
+        where: { id: institutionId },
+        relations: {schedules:true },
+    });
 
-  const account = myInds.find((institution) => institution.id === institutionId);
+    const account = myInds.find(
+        (institution) => institution.id === institutionId
+    );
 
-  const newActive = false;
+    const newActive = false;
 
-  await institutionRepository.update(account!.id, { isActive: newActive });
+    await institutionRepository.update(account!.id, { isActive: newActive });
 
-  return true;
+    return true;
 };
 
 export default deleteInstitutionService;

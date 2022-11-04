@@ -8,13 +8,22 @@ const ensureMotherId = async (req: Request, res: Response, next: NextFunction) =
     try {
     
         const id = req.params.id;
+
+        const tokenId = req.mother
         
         const motherRepository = AppDataSource.getRepository(Mother);
-
+        
+        if(!id){ 
+            console.log('imimi')
+            throw new AppError(401, "Invalid id") 
+        };
+        
+        if(id !== tokenId.sub){ throw new AppError(404, "Invalid id") };
+        
         const mother = await motherRepository.findOneBy({id});
 
-        if(!mother){ throw new AppError(401, "Invalid id") };
-
+        if(!mother){ throw new AppError(404, "Mother not found") };
+        
         return next();
 
     } catch (error) {

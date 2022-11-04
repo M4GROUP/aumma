@@ -3,30 +3,39 @@ import { hash } from "bcryptjs";
 import AppDataSource from "../../data-source";
 import { Mother } from "../../entities/Mother.entity";
 import { IMother, IMotherRequest } from "../../interfaces/mothers";
+import { AppError } from "../../errors/AppError";
+import { motherSerializer, updateMotherSerializer } from "../../serializers/mothers/mother.serializer";
 
-const updateMotherService = async (id: string, motherRequest: IMotherRequest): Promise<IMother> => {
-    
-    const {address, cpf, email, name, password, phone, rg} = motherRequest;
+const updateMotherService = async (
+    id: string,
+    motherRequest: IMotherRequest
+): Promise<IMother> => {
+
+    const serialized = await motherSerializer.validate(motherRequest, {
+        abortEarly: true,
+    })
 
     const motherRepository = AppDataSource.getRepository(Mother);
-    
-    const mother = await motherRepository.findOneBy({id});
+
+    const mother = await motherRepository.findOneBy({ id });
+
+    const updateSerialized = await updateMotherSerializer.validate(mother!, {
+        abortEarly: true,
+    })
 
     await motherRepository.update(
         id,{
-            name: name ? name : mother!.name, address: address ? address : mother!.address,
-            cpf: cpf ? cpf : mother!.cpf, email: email ? email : mother!.email,
-            password: password ? await hash(password, 10) : mother!.password,
-            phone: phone ? phone : mother!.phone, rg: rg ? rg : mother!.rg
+            name: serialized.name ? serialized.name : updateSerialized!.name,
+            address: serialized.address ? serialized.address : updateSerialized!.address,
+            password: serialized.password ? await hash(serialized.password, 10) : updateSerialized!.password,
+            phone: serialized.phone ? serialized.phone : updateSerialized!.phone,
         }
     );
 
     const updatedUser = instanceToInstance(await motherRepository.findOneBy({id}));
 
-    console.log(updatedUser)
+    return updatedUser!;
 
-    return updatedUser!
-
-}
+};
 
 export default updateMotherService;

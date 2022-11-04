@@ -22,8 +22,8 @@ const sessionMotherService = async (mother: IMotherLogin) => {
     );
 
     const motherData = instanceToInstance(findMother);
-    
-    return {token: token, mother: motherData};
+
+    return {token: token, motherId: motherData?.id};
 
 }
 

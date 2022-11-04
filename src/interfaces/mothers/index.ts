@@ -1,3 +1,6 @@
+import { Childrens } from "../../entities/Childrens.entity"
+import { Institution } from "../../entities/Institution.entity"
+import { Schedules } from "../../entities/Schedules.entity"
 import { IChildrenRequest } from "../childrens"
 import { IInstitutionRequest } from "../institutions"
 import { IScheduleRequest } from "../schedules"
@@ -7,9 +10,10 @@ export interface IMotherRequest {
     address: string
     phone: number
     email: string
-    password: string
+    password?: string
     cpf: string
     rg: string
+    isActive?: boolean
 }
 
 export interface IMother {
@@ -18,7 +22,7 @@ export interface IMother {
     address: string
     phone: number
     email: string
-    password: string
+    password?: string
     cpf: string
     rg: string
 }

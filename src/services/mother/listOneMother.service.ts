@@ -8,11 +8,18 @@ const listOneMotherService = async (id: string): Promise<IMother> => {
 
     const motherRepository = AppDataSource.getRepository(Mother);
     
-    const mother = await motherRepository.findOneBy({id});
+    const mothers = await motherRepository.find({
+        relations: {
+            childrens: true, 
+        },
+        where: {
+            id:id
+        }, 
+    });
 
-    // if(!mother){ throw new AppError(400, 'User Not found')};
-
-    return instanceToInstance(mother!);
+    const mother = instanceToInstance(mothers[0])
+    // mother.childrens[0].schedules[0]
+    return mother;
 
 }
 

@@ -35,7 +35,9 @@ export const createChildren_Service = async ({
         where: { id: institutionsId },
     });
 
-    if(!mother || !institution) throw new AppError(400,"Not Found id of mother or institution");
+    if (!mother || !institution) {
+        throw new AppError(400, "Not Found id of mother or institution");
+    }
 
     const newChildren = new Childrens();
     newChildren.name = name;
@@ -43,7 +45,7 @@ export const createChildren_Service = async ({
     newChildren.genre = gender;
     newChildren.isPCD = with_disability;
     newChildren.mother = mother;
-    newChildren.institution = institution;
+   
 
     await ChildrenRepository.save(newChildren);
     ChildrenRepository.create(newChildren);

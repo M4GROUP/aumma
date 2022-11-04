@@ -4,7 +4,6 @@ import * as bcryptjs from "bcryptjs";
 import { AppError, handleError } from "../../errors/AppError";
 
 const updateInstitutionService = async (id: string, updatedData: any) => {
-
     if (
         updatedData.cnpj === false ||
         updatedData.cnpj === true ||
@@ -52,8 +51,6 @@ const updateInstitutionService = async (id: string, updatedData: any) => {
     });
 
     return true;
-   
-  
 };
 
 export default updateInstitutionService;

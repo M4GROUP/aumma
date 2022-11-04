@@ -1,8 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne} from "typeorm"
 
 import { Schedules } from "./Schedules.entity"
-import { Childrens } from "./Childrens.entity"
-import { Mother } from "./Mother.entity"
 import { Admin } from "./Admin.entity"
 
 @Entity()
@@ -39,12 +37,6 @@ export class Institution {
 
     @OneToMany((type) => Schedules, (schedulesInstitutions) => schedulesInstitutions.institution )
     schedules: Schedules[]
-   
-    @OneToMany((type) => Childrens, (childrensInInstitutions) => childrensInInstitutions.institution)
-    childrensIn: Childrens[]
-
-    @OneToMany((type) => Mother, (motherInstitution) => motherInstitution.institutionsMother)
-    mother: Mother[]
 
     @ManyToOne((type) => Admin, (adminInstitutions) => adminInstitutions.institutions)
     admin: Admin

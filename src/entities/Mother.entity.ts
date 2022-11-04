@@ -2,8 +2,6 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "ty
 import { Exclude } from "class-transformer";
 
 import { Childrens } from "./Childrens.entity"
-import { Institution } from "./Institution.entity"
-import { Schedules } from "./Schedules.entity"
 import { Admin } from "./Admin.entity"
 
 @Entity()
@@ -33,14 +31,11 @@ export class Mother {
     @Column({length: 128, unique: true})
     rg: string
 
+    @Column()
+    isActive: boolean;
+
     @OneToMany((type) => Childrens, (childrensMother) => childrensMother.mother)
     childrens: Childrens[]
-
-    @OneToMany((type) => Schedules, (schedulesMother) => schedulesMother.mother)
-    schedulesMother: Schedules[]
-
-    @ManyToOne((type) => Institution, (institutionsMother) => institutionsMother.mother)
-    institutionsMother: Institution
 
     @ManyToOne((type) => Admin, (adminMother) => adminMother.institutions)
     admin: Admin
