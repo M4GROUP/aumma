@@ -5,8 +5,8 @@ import { IMotherRequest } from "../mothers"
 export interface IChildrenRequest {
     name: string
     age: number
-    with_disability: boolean
-    gender: string
+    isPCD: boolean
+    genre: string
     motherId: string
     institutionsId?: string
 }

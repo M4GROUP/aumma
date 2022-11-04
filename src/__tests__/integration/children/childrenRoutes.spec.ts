@@ -10,7 +10,7 @@ import { childrenData, childrenDisabilityData } from "../../mocks/children";
 import { mockedMother, mockedMotherLogin } from "../../mocks/mother";
 
 const listUser: Array<IChildrenResponse> = [];
-let token: string = "";
+
 
 describe("Testing children's route", () => {
     let connection: DataSource;
@@ -27,7 +27,7 @@ describe("Testing children's route", () => {
         await connection.destroy();
     });
 
-    test("POST /children => Deve ser capaz de criar crianças", async () => {
+    test("POST /children => Must be able to create childrens", async () => {
         const motherLoginResponse = await request(app)
             .post("/login/mothers")
             .send(mockedMotherLogin);
@@ -37,40 +37,20 @@ describe("Testing children's route", () => {
             .post("/children")
             .set("Authorization", `Bearer ${token}`)
             .send(childrenData);
-            
-        const resultDisabilityChildren = await request(app)
-            .post("/children")
-            .set("Authorization", `Bearer ${token}`)
-            .send(childrenDisabilityData);
-
-        expect(resultChildren.status).toBe(201);
-        expect(resultDisabilityChildren.status).toBe(201);
 
         expect(resultChildren.body).toHaveProperty("id");
         expect(resultChildren.body).toHaveProperty("name");
         expect(resultChildren.body).toHaveProperty("age");
-        expect(resultChildren.body).toHaveProperty("with_disability");
-        expect(resultChildren.body).toHaveProperty("gender");
+        expect(resultChildren.body).toHaveProperty("isPCD");
+        expect(resultChildren.body).toHaveProperty("genre");
         expect(resultChildren.body.name).toEqual("Maya");
         expect(resultChildren.body.age).toEqual(6);
-        expect(resultChildren.body.with_disability).toEqual(false);
-        expect(resultChildren.body.name).toEqual("Feminino");
-
-        expect(resultDisabilityChildren.body).toHaveProperty("id");
-        expect(resultDisabilityChildren.body).toHaveProperty("name");
-        expect(resultDisabilityChildren.body).toHaveProperty("age");
-        expect(resultDisabilityChildren.body).toHaveProperty("with_disability");
-        expect(resultDisabilityChildren.body).toHaveProperty("gender");
-        expect(resultChildren.body.name).toEqual("Gael");
-        expect(resultChildren.body.age).toEqual(5);
-        expect(resultChildren.body.with_disability).toEqual(true);
-        expect(resultChildren.body.name).toEqual("Masculino");
-
-        listUser.push(resultChildren.body);
-        listUser.push(resultDisabilityChildren.body);
+        expect(resultChildren.body.isPCD).toEqual(false);
+        expect(resultChildren.body.genre).toEqual("Feminino");
+        expect(resultChildren.status).toBe(201);
     });
 
-    test("POST /children => Não deve criar uma criança sem autenticação", async () => {
+    test("POST /children => Should not be able to create a children without authentication ", async () => {
         const getChildren = await request(app)
             .post("/children")
             .send(childrenData);
@@ -79,82 +59,99 @@ describe("Testing children's route", () => {
         expect(getChildren.body).toEqual("message");
     });
 
-    test("GET /children => Deve retornar a lista de Crianças existentes", async () => {
-        const resultToken = await request(app)
-            .get("/children")
-            .set(`Authorization`, `Bearer ${token}`);
-
-        expect(resultToken.body).toMatchObject(listUser);
-        expect(resultToken.status).toBe(200);
-        expect(resultToken.body[0]).toHaveProperty("id");
+    test("GET /childrens/:id => Should be able to list all children related to a mother", async () => {
+        const motherLoginResponse = await request(app)
+            .post("/login/mothers")
+            .send(mockedMotherLogin);
+        const token = `Bearer ${motherLoginResponse.body.token}`;
+        const id = motherLoginResponse.body.motherId;
+        const response = await request(app)
+            .get(`/childrens/${id}`)
+            .set("Authorization", token);
+        expect(response.body).toHaveLength(1);
+        expect(response.status).toBe(200);
     });
 
-    test("GET /children => Não Listar as crianças sem autenticação", async () => {
-        const getChildren = await request(app).get("/children");
-
-        expect(getChildren.status).toBe(404);
-        expect(getChildren.body).toEqual("message");
+    test("GET /childrens/mother/:id => Should be able to list one children related to a mother", async () => {
+        const motherLoginResponse = await request(app)
+            .post("/login/mothers")
+            .send(mockedMotherLogin);
+        const token = `Bearer ${motherLoginResponse.body.token}`;
+        const id = motherLoginResponse.body.motherId;
+        const response = await request(app)
+        .get(`/childrens/${id}`)
+        .set("Authorization", token);  
+        const idChild = response.body[0].id
+        const getOneChild = await request(app)
+        .patch(`/childrens/mother/${idChild}`)
+        .set("Authorization", `Bearer ${token}`)
+        expect(getOneChild.body).toHaveLength(1);
+        expect(getOneChild.status).toBe(200);
     });
 
-    test("GET /children/mother/:id => Deve listar os filhos de uma determinada mãe", async () => {
-        const mother = await request(app).post("/mothers").send(mockedMother);
-        const getIdMother = await request(app).get(
-            `/mothers/${mother.body.id}`
+
+    test("GET /children/:id => Should not be able to list childrens without authentication", async () => {
+        const response = await request(app).get(
+            `/childrens/4f9580f9-d900-4834-8d3e-58f22514cb28`
         );
 
-        const resultToken = await request(app)
-            .get(`/children/mother/${getIdMother}`)
-            .set("Authorization", `Bearer ${token}`);
-
-        expect(resultToken.body).toMatchObject(listUser);
-        expect(resultToken.status).toBe(200);
-        expect(resultToken.body[0]).toHaveProperty("id");
-        expect(resultToken.body[0].motherId).toEqual(getIdMother);
+        expect(response.body).toHaveProperty("message");
+        expect(response.status).toBe(401);
     });
 
-    test("POST /children/mother/:id => Não deve ser capaz de listar os filhos de uma mãe sem autenticação", async () => {
-        const mother = await request(app).post("/mothers").send(mockedMother);
-        const getIdMother = await request(app).get(
-            `/mothers/${mother.body.id}`
-        );
-        const getChildren = await request(app)
-            .get(`/children/mother/${getIdMother}`)
-            .send(childrenData);
-
-        expect(getChildren.status).toBe(404);
-        expect(getChildren.body).toEqual("message");
+    test("GET /childrens/:id => Should not able to list all children related to another mother", async () => {
+        const motherLoginResponse = await request(app)
+            .post("/login/mothers")
+            .send(mockedMotherLogin);
+        const token = `Bearer ${motherLoginResponse.body.token}`
+        const response = await request(app)
+            .get(`/childrens/$4f9580f9-d900-4834-8d3e-58f22514cb28`)
+            .set("Authorization", token);
+            expect(response.body).toHaveProperty("message");
+            expect(response.status).toBe(401);
     });
 
-    test("GET /children/mother/:id => Não deve ser capaz de listar os filhos de uma mãe que não existe", async () => {
-        const resultToken = await request(app)
-            .get(`/children/mother/xxxxxxxxx`)
-            .set("Authorization", `Bearer ${token}`);
-
-        expect(resultToken.status).toBe(404);
-        expect(resultToken.body).toHaveProperty("message");
-    });
-
-    test("PATCH /children:id => Dever ser capaz de atualizar a criança", async () => {
-        const childrenUpdated = { age: 10, with_disability: true };
+    test("PATCH /childrens/mother/:id => Should be able to update children", async () => {
+        const motherLoginResponse = await request(app)
+        .post("/login/mothers")
+        .send(mockedMotherLogin);
+        const token = `Bearer ${motherLoginResponse.body.token}`;
+        const id = motherLoginResponse.body.motherId;
+        const response = await request(app)
+        .get(`/childrens/${id}`)
+        .set("Authorization", token);  
+        const idChild = response.body[0].id
+        const childrenUpdated = { age: 10, isPCD: true };
         const updated = await request(app)
-            .patch(`/children/${listUser[0].id}`)
+            .patch(`/childrens/mother/${idChild}`)
             .set("Authorization", `Bearer ${token}`)
             .send(childrenUpdated);
 
-        expect(updated.status).toBe(200);
-        expect(updated.body.age).toEqual(10);
-        expect(updated.body.with_disability).toEqual(true);
-        expect(updated.body.name).toEqual(listUser[0].name);
+            expect(updated.body.age).toEqual(10);
+            expect(updated.body.isPCD).toEqual(true);
+            expect(updated.status).toBe(200);
+
     });
 
-    test("DELETE /children:id => Dever ser capaz de deletar a criança", async () => {
+    test("DELETE /children:id => Should be able to delete a children", async () => {
+        const motherLoginResponse = await request(app)
+        .post("/login/mothers")
+        .send(mockedMotherLogin);
+        const token = `Bearer ${motherLoginResponse.body.token}`;
+        const id = motherLoginResponse.body.motherId;
+        const response = await request(app)
+        .get(`/childrens/${id}`)
+        .set("Authorization", token);  
+        const idChild = response.body[0].id
         const childrenUpdated = { isActive: false };
         const updated = await request(app)
-            .patch(`/children/${listUser[0].id}`)
+            .delete(`/childrens/mother/${idChild}`)
             .set("Authorization", `Bearer ${token}`)
             .send(childrenUpdated);
-
-        expect(updated.status).toBe(200);
-        expect(updated.body.isActive).toEqual(false);
+            const findUser = await request(app)
+            .get(`/childrens/mother/${idChild}`)
+            .set("Authorization", token);
+        expect(updated.status).toBe(204);
+        expect(findUser.body[0].isActive).toBe(false);
     });
 });
