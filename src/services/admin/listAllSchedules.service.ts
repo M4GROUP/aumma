@@ -6,7 +6,9 @@ const listAllSchedulesService = async () => {
     const schedulesRepository = AppDataSource.getRepository(Schedules);
 
     const schedule = await schedulesRepository.find({
-        relations: {institution:true, mother:true},
+        relations: {
+            institution:true, 
+        },
     });
     return schedule;
 };
