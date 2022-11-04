@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
     "build": "tsc",
-    "start": "dist/src/server.js",
+    "start": "node dist/src/server.js",
     "typeorm": "typeorm-ts-node-commonjs",
     "test": "cross-env NODE_ENV=test jest"
   },
