@@ -16,6 +16,7 @@ export interface IChildrenResponse extends IChildrenRequest {
 }
 
 export interface IUpdateChildren {
+    name?:string
     age: number
-    with_disability: boolean
+    isPCD: boolean
 }
