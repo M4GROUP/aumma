@@ -5,8 +5,8 @@ export const createChildren = async (req: Request, res: Response) => {
     const { 
         name,
         age,
-        gender, 
-        with_disability, 
+        genre, 
+        isPCD, 
         institutionsId, 
         motherId 
     } = req.body;
@@ -14,8 +14,8 @@ export const createChildren = async (req: Request, res: Response) => {
     const result = await createChildren_Service({
         name,
         age,
-        gender,
-        with_disability,
+        genre,
+        isPCD,
         institutionsId,
         motherId,
     });

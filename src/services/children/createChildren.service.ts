@@ -11,8 +11,8 @@ import {
 export const createChildren_Service = async ({
     name,
     age,
-    gender,
-    with_disability,
+    genre,
+    isPCD,
     institutionsId,
     motherId,
 }: IChildrenRequest) /* : Promise<IChildrenRequest> */ => {
@@ -42,8 +42,8 @@ export const createChildren_Service = async ({
     const newChildren = new Childrens();
     newChildren.name = name;
     newChildren.age = age;
-    newChildren.genre = gender;
-    newChildren.isPCD = with_disability;
+    newChildren.genre = genre;
+    newChildren.isPCD = isPCD;
     newChildren.mother = mother;
    
 
