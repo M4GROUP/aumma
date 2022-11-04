@@ -111,7 +111,7 @@ describe("Testing children's route", () => {
             expect(response.status).toBe(401);
     });
 
-    test("PATCH /childrens/mother/:id => Should be able to update children", async () => {
+    test("PATCH /childrens/mother/:id => Should be able to update a children", async () => {
         const motherLoginResponse = await request(app)
         .post("/login/mothers")
         .send(mockedMotherLogin);
@@ -133,7 +133,7 @@ describe("Testing children's route", () => {
 
     });
 
-    test("DELETE /children:id => Should be able to delete a children", async () => {
+    test("DELETE /childrens/mother/:id => Should be able to delete a children", async () => {
         const motherLoginResponse = await request(app)
         .post("/login/mothers")
         .send(mockedMotherLogin);
