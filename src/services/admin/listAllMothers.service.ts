@@ -5,8 +5,11 @@ const listAllMothersService = async () => {
     const motherRepository = AppDataSource.getRepository(Mother);
 
     const mothers = await motherRepository.find({
-        relations: {childrens:true, schedulesMother:true},
+        relations: {childrens:true,
+            //  schedulesMother:true
+            },
     });
+    
     return mothers;
 };
 

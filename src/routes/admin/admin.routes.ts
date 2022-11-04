@@ -20,7 +20,7 @@ import ensureisActiveAdmin from "../../middlewares/admin/ensureIsActiveAdmin.mid
 const routes = Router();
 
 export const adminRoutes = () => {
-    routes.post("/", createAdminController);
+    routes.post("/", ensureAuthAdm ,ensurePrivilegeAdmin,createAdminController);
     routes.get(
         "/",
         ensureAuthAdm,
@@ -48,12 +48,12 @@ export const adminRoutes = () => {
         deleteAdminByIdController
     );
     //rota com problema
-    // routes.get(
-    //     "/institutions",
-    //     // ensureAuthAdm,
-    //     // ensureisActiveAdmin,
-    //     listAllInstitutionsController
-    // );
+    routes.get(
+        "/institutions",
+        ensureAuthAdm,
+        ensureisActiveAdmin,
+        listAllInstitutionsController
+    );
     routes.delete(
         "/institutions/:id",
         ensureAuthAdm,
@@ -76,11 +76,11 @@ export const adminRoutes = () => {
     );
     //Rota com problema
 
-    // routes.get(
-    //     "/mothers",
+    routes.get(
+        "/mothers",
 
-    //     listAllMothersController
-    // );
+        listAllMothersController
+    );
     routes.get(
         "/mothers/:id",
         ensureAuthAdm,
@@ -101,13 +101,12 @@ export const adminRoutes = () => {
         ensurePrivilegeAdmin,
         deleteMotherByIdController
     );
-    //Rota com problema
-    // routes.get(
-    //     "/schedules",
-    //      ensureAuthAdm,
-    //      ensureisActiveAdmin,
-    //     listAllSchedulesController
-    // );
+    routes.get(
+        "/schedules",
+         ensureAuthAdm,
+         ensureisActiveAdmin,
+        listAllSchedulesController
+    );
 
     return routes;
 };
