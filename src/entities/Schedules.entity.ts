@@ -16,7 +16,7 @@ export class Schedules {
     @Column()
     date: Date
 
-    @Column()
+    @Column({default: true})
     isActive: boolean
 
     @Column()

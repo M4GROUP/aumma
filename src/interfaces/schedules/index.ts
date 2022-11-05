@@ -1,11 +1,13 @@
 import { IInstitutionRequest } from "../institutions"
-import { IMotherRequest } from "../mothers"
+import { IChildrenRequest } from "../childrens"
 
 export interface IScheduleRequest {
-    isActive: boolean
+    name: string,
     date: Date
+    isActive: boolean
     period: string
     gender: string
-    mother: IMotherRequest
-    intitution: IInstitutionRequest
+    idChildren: string
+    idIntitution: string
 }
+
