@@ -11,3 +11,14 @@ export interface IScheduleRequest {
     idIntitution: string
 }
 
+export interface IScheduleResponse {
+    id: string,
+    name: string,
+    date: Date,
+    isActive: boolean,
+    period: string,
+    createdAt: Date,
+    idChildren: string,
+    idInstitution: string,
+}
+
