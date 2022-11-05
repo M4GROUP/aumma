@@ -1,28 +1,28 @@
 import { Request, Response, NextFunction } from "express";
 import AppDataSource from "../../data-source";
-import { Mother } from "../../entities/Mother.entity";
+import { Admin } from "../../entities/Admin.entity";
 import { AppError, handleError } from "../../errors/AppError";
 
-const ensureExistsMother = async (req: Request, res: Response, next: NextFunction) => {
+const ensureAdminExists = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
-        
+
         const email = req.body.email;
 
-        const motherRepository = AppDataSource.getRepository(Mother);
-   
-        const mothers = await motherRepository.find();
+        const motherRepository = AppDataSource.getRepository(Admin);
+       
+        const admins = await motherRepository.find();
 
         if(!email){throw new AppError(400, 'E-mail is missing')};
       
-        const emailAlreadyExists = mothers.find(mother => mother.email === email);
+        const emailAlreadyExists = admins.find(admin => admin.email === email);
         
         if (emailAlreadyExists) {throw new AppError(400,"Email already exists")};
 
         return next();
-
-    } catch (error) {   
         
+    } catch (error) {
+                
         if(error instanceof AppError) {
 
             return res.status(error.statusCode).json({message: error.message});
@@ -33,4 +33,4 @@ const ensureExistsMother = async (req: Request, res: Response, next: NextFunctio
 
 };
 
-export default ensureExistsMother;
+export default ensureAdminExists;

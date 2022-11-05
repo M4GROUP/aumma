@@ -65,19 +65,20 @@ describe("/institutions", () => {
     });
 
     test("POST /admin/login -  should be able to login", async () => {
+
         const response = await request(app)
             .post("/admin/login")
             .send(mockedAdminLogin);
+
         expect(response.body).toHaveProperty("token");
         expect(response.status).toBe(200);
     });
 
-    test("POST /admin/login -  should be not able to login with wrong password or login", async () => {
-        const response = await request(app)
-            .post("/admin/login")
-            .send(mockedWrongAdminLogin);
+    test("POST /admin/login -  should be not able to login with wrong password or email", async () => {
+        const response = await request(app).post("/admin/login").send(mockedWrongAdminLogin);
+
         expect(response.body).toHaveProperty("message");
-        expect(response.status).toBe(409);
+        expect(response.status).toBe(403);
     });
 
     test("GET /admin/institutions -  Must be able to list all institutions", async () => {
