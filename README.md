@@ -30,6 +30,11 @@ Quando a sociedade cuida de uma mãe, todo mundo sai ganhando!
 <li class="has-line-data" data-line-start="22" data-line-end="23"><input type="checkbox" id="checkbox30" checked="true"><label for="checkbox30">Colocar as funcoes da API ;</label></li>
 <li class="has-line-data" data-line-start="23" data-line-end="24"><input type="checkbox" id="checkbox31" checked="true"><label for="checkbox31">Colocar as funcoes da API ;</label></li>
 </ul>
+
+<p>Confira o layout do projeto em nosso 
+<a href="https://www.figma.com/file/f7GMNI1z2ycZ0GZPgr4UWn/AUMMA?node-id=0%3A1">FIGMA</a>
+</p>
+
 <h3 class="code-line" data-line-start=24 data-line-end=25 ><a id="Membros_24"></a>Membros</h3>
 
 - <a href="https://github.com/lolaeurich">Paola Eurich(Cargo) </a>;
@@ -39,3 +44,5 @@ Quando a sociedade cuida de uma mãe, todo mundo sai ganhando!
 - <a href="https://github.com/exemplo">Geferson Almeida(Cargo)<a>
 - <a href="https://github.com/exemplo">Daniel Carvalho(Cargo)<a>
 
+
+<a href="https://www.mozilla.org/pt-BR/">a página inicial da Mozilla</a>.
