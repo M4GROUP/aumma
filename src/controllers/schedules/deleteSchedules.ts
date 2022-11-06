@@ -6,6 +6,7 @@ export const deleteSchedules = async (req: Request, res: Response) => {
     try {
         const { id } = req.params; 
         const result = await deleteSchedules_Service(id);
+        
         return res.status(204).json(result);
     }
     catch (err) {
