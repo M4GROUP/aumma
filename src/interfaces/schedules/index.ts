@@ -6,8 +6,8 @@ export interface IScheduleRequest {
     date: Date
     isActive: boolean
     period: string
-    gender: string
+    /* gender: string */
     idChildren: string
-    idIntitution: string
+    idInstitution: string
 }
 
