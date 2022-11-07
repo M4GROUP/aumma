@@ -98,7 +98,7 @@ export const adminRoutes = () => {
         "/mothers/:id",
         ensureAuthAdm,
         ensureisActiveAdmin,
-        // ensureMotherId,
+        ensureMotherId,
         listMotherByIdController
     );
     routes.patch(
