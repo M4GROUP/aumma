@@ -1,14 +1,16 @@
 import { IInstitutionRequest } from "../institutions"
 import { IChildrenRequest } from "../childrens"
+import { Institution } from "../../entities/Institution.entity"
+import { Childrens } from "../../entities/Childrens.entity"
 
 export interface IScheduleRequest {
     name: string,
     date: string
     isActive: boolean
     period: string
-    /* gender: string */
-    idChildren: string
-    idInstitution: string
+    // gender: string
+    childrensId: string,
+    institutionsId: string,
 }
 
 export interface IScheduleResponse {
@@ -18,7 +20,7 @@ export interface IScheduleResponse {
     isActive: boolean,
     period: string,
     createdAt: Date,
-    idChildren: string,
-    idInstitution: string,
+    childrensId: string,
+    institutionId: string,
 }
 

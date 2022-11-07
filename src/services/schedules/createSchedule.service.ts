@@ -6,7 +6,7 @@ import { Schedules } from "../../entities/Schedules.entity";
 import { AppError } from "../../errors/AppError";
 import { IScheduleRequest } from "../../interfaces/schedules";
 
-const createScheduleService = async (childrenId: string, institutionId: string , {name, date, period}: IScheduleRequest): Promise<IScheduleRequest> => {
+const createScheduleService = async (childrenId: string, institutionId: string , {name, date, period}: IScheduleRequest): Promise<Schedules> => {
    
     const schedulesRepository = AppDataSource.getRepository(Schedules)
     const institutionRepository = AppDataSource.getRepository(Institution)

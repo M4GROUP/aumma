@@ -1,12 +1,17 @@
+import { IChildrenRequest } from "./../../../interfaces/childrens/index";
+import { Childrens } from "../../../entities/Childrens.entity";
 import { IScheduleRequest } from "../../../interfaces/schedules";
-import { mockedInstitutionWithoutCNPJ } from "../institutions";
+import { childrenData } from "../children";
+import { mockedInstitution, mockedInstitutionWithoutCNPJ } from "../institutions";
 import { mockedMother } from "../mother";
 
 export const mockedSchedules: IScheduleRequest = {
-  mother: mockedMother,
-  date: new Date,
-  gender: "female",
+  name: "Maya",
+    // mother: mockedMother,
+  date: "07/11/2022",
+  // gender: "female",
+  childrensId: "b855d86b-d4c9-41cd-ab98-d7fa734c6ce4",
   isActive: true,
   period: "8h",
-  intitution: mockedInstitutionWithoutCNPJ
+  institutionsId: "b855d86b-d4c9-41cd-ab98-d7fa734c6ce4"
 }

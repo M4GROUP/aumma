@@ -1,19 +1,24 @@
+import { Mother } from "../../../entities/Mother.entity"
 import { IChildrenRequest } from "../../../interfaces/childrens"
+import { mockedInstitution } from "../institutions"
+import { mockedMother } from "../mother"
 
 export const childrenData:IChildrenRequest = {
     age: 6,
     genre: "Feminino",
     name: "Maya",
     isPCD: false,
-    motherId: "e5496fac-0194-4694-87fe-aee0d837d177"
+    motherId: "b855d86b-d4c9-41cd-ab98-d7fa734c6ce4",
+    isActive: true,
+    institutionsId:"b855d86b-d4c9-41cd-ab98-d7fa734c6ce4"
 }
-
 export const childrenDisabilityData:IChildrenRequest = {
     age: 5,
     genre: "Masculino",
     name: "Gael",
     isPCD: true,
-    motherId: "4f9580f9-d900-4834-8d3e-58f22514cb28",
-    institutionsId:"0ac51579-f72b-49e6-b7fc-10a2127af1c4"
+    isActive: true,
+    motherId: "b855d86b-d4c9-41cd-ab98-d7fa734c6ce4",
+    institutionsId:"b855d86b-d4c9-41cd-ab98-d7fa734c6ce4"
     
 }
