@@ -38,7 +38,8 @@ describe("Testing children's route", () => {
                 name: "Maya",
                 isPCD: false,
                 // motherId: motherId,
-            });
+            });    
+
 
         expect(resultChildren.body).toHaveProperty("id");
         expect(resultChildren.body).toHaveProperty("name");
