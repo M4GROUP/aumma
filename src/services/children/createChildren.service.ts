@@ -14,6 +14,7 @@ export const createChildren_Service = async (childrenRequest: IChildrenRequest, 
     const motherRepository = AppDataSource.getRepository(Mother);
     
     if (!motherId){throw new AppError(400, "Data is requisites")};
+  
     const mother = await motherRepository.findOneBy({id: motherId});
     
     const children = await childrenRepository.find();
@@ -21,7 +22,6 @@ export const createChildren_Service = async (childrenRequest: IChildrenRequest, 
     const validChildren = children.find((children) => children.name === name);
     
     if (validChildren){throw new AppError(400, "Children already exist ")};
-    
     
     if (!mother){throw new AppError(400, "Not Found id of mother")};
     const newChildren = new Childrens();
@@ -32,11 +32,10 @@ export const createChildren_Service = async (childrenRequest: IChildrenRequest, 
     newChildren.mother = mother;
     
     const newChild =  childrenRepository.create(newChildren);
+
     newChild.isActive = true
     
-    await childrenRepository.save(newChild);
+    await childrenRepository.save(newChild);    
     
-    
-
     return newChild;
 };

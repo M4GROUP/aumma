@@ -3,7 +3,7 @@ import AppDataSource from "../../../data-source";
 import request from "supertest";
 import app from "../../../app";
 import { mockedSchedules } from "../../mocks/schedule";
-import { mockedMotherLogin } from "../../mocks/mother";
+import { mockedMother, mockedMotherLogin } from "../../mocks/mother";
 
 describe("/schedules TESTES", ()=> {
 
@@ -23,7 +23,23 @@ describe("/schedules TESTES", ()=> {
     })
 
     test("POST /schedules - Must be able to create a schedules", async () => {
-        const response = await request(app).post("/schedules").send(mockedSchedules)
+        await request(app).post('/mothers').send(mockedMother)
+
+        const motherLoginResponse = await request(app)
+            .post("/mothers/login")
+            .send(mockedMotherLogin);
+        
+        const token = `Bearer ${motherLoginResponse.body.token}`;
+
+        const childrenResponse = await request(app).post("/childrens").set("Authorization", token).send({
+            age: 6,
+            genre: "Feminino",
+            name: "Maya",
+            isPCD: false,
+        });
+        const childrenId = childrenResponse.body.id
+        const response = await request(app).post(`/schedules/${childrenId}`).send(mockedSchedules)
+        console.log(response.body)
 
         expect(response.body).toHaveProperty("mother")
         expect(response.body).toHaveProperty("date")
