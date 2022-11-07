@@ -5,11 +5,7 @@ import { AppError, handleError } from "../../errors/AppError";
 import AppDataSource from "../../data-source";
 import { Institution } from "../../entities/Institution.entity";
 
-const ensureIsInstitutionMiddleware = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+const ensureIsInstitutionMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.params.id;
 

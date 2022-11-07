@@ -3,15 +3,11 @@ import listAllInstitutionsService from "../../services/admin/listAllInstitutions
 import { AppError, handleError } from "../../errors/AppError";
 
 const listAllInstitutionsController = async (req: Request, res: Response) => {
-  try {
-    const myInstitutions = await listAllInstitutionsService();
 
-    return res.send(myInstitutions);
-  } catch (err) {
-    if (err instanceof AppError) {
-      handleError(err, res);
-    }
-  }
+  const myInstitutions = await listAllInstitutionsService();
+  console.log(req.params)
+    return res.status(200).json(myInstitutions);
+
 };
 
 export default listAllInstitutionsController;

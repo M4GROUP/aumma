@@ -2,27 +2,14 @@ import AppDataSource from "../../data-source";
 import { Institution } from "../../entities/Institution.entity";
 import { AppError } from "../../errors/AppError";
 
-const deleteInstitutionByIdService = async (institutionId: string) => {
+const deleteInstitutionByIdService = async (institutionId: string): Promise<object> => {
     const institutionRepository = AppDataSource.getRepository(Institution);
 
-    const myInds = await institutionRepository.find({
-        where: { id: institutionId },
-    });
+    const institution = await institutionRepository.findOneBy({id: institutionId})
 
-    const account = myInds.find(
-        (institution) => institution.id === institutionId
-    );
-    if (!account) {
-        throw new AppError(400, "Institution dont exist");
-    }
+    await institutionRepository.update(institution!.id, { isActive: false });
 
-    console.log("*****************", institutionId);
-
-    const newActive = false;
-
-    await institutionRepository.update(account!.id, { isActive: newActive });
-
-    return true;
+    return {message:"Institution deleted with success!"};
 };
 
 export default deleteInstitutionByIdService;

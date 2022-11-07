@@ -1,22 +1,16 @@
 import { Request, Response } from "express";
 import updateAdminByIdService from "../../services/admin/updateAdmin.service";
-import { AppError, handleError } from "../../errors/AppError";
-
 
 const updateAdminByIdController = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
 
-    const updatedData: any = req.body;
+  const id = req.params.id;
 
-    const user = await updateAdminByIdService(id, updatedData);
+  const updatedData = req.body;
 
-    return res.status(200).json({ message: "Data updated!" });
-  } catch (err) {
-    if (err instanceof AppError) {
-      handleError(err, res);
-    }
-  }
+  const user = await updateAdminByIdService(id, updatedData);
+
+  return res.status(200).json(user);
+
 };
 
 export default updateAdminByIdController;

@@ -2,13 +2,12 @@ import AppDataSource from "../../data-source";
 import { Admin } from "../../entities/Admin.entity";
 
 
-const listAdminByIdService = async (adminId: string) => {
+const listAdminByIdService = async (id: string): Promise<Admin> => {
     const adminRepository = AppDataSource.getRepository(Admin);
 
-    const myInds = await adminRepository.find({
-        where: { id: adminId },
-    });
-    return myInds;
+    const admin = await adminRepository.findOneBy({id});
+    
+    return admin!;
 };
 
 export default listAdminByIdService;
