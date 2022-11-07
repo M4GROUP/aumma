@@ -15,7 +15,7 @@ const AppDataSource = new DataSource(
             { rejectUnauthorized: false}
             : false,
         logging: true,
-        synchronize: false,
+        synchronize: true,
         entities:  process.env.NODE_ENV === "production"
           ? ["dist/src/entities/*.js"]
           : ["src/entities/*.ts"],

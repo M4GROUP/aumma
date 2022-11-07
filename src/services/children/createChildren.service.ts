@@ -7,7 +7,7 @@ import {
     IChildrenResponse,
 } from "../../interfaces/childrens";
 
-export const createChildren_Service = async (childrenRequest: IChildrenRequest, motherId: string): Promise<Childrens> => {
+export const createChildren_Service = async (childrenRequest: IChildrenRequest, motherId: string) => {
     const {age, genre,isPCD,name,institutionsId} = childrenRequest
     
     const childrenRepository = AppDataSource.getRepository(Childrens);
@@ -36,18 +36,7 @@ export const createChildren_Service = async (childrenRequest: IChildrenRequest, 
     
     await childrenRepository.save(newChild);
     
-    mother.childrens.push(newChild);
-    console.log(mother);
-
-    // const newChild = {
-    //     id: newChildren.id,
-    //     name: name,
-    //     age: newChildren.age,
-    //     genre: newChildren.genre,
-    //     isPCD: newChildren.isPCD ,
-    //     mother: newChildren.mother,
-       
-    // };
+    
 
     return newChild;
 };
