@@ -19,8 +19,7 @@ const ensureAccount = async (req: Request, res: Response, next: NextFunction) =>
         
         const passwordMatch = await bcrypt.compare(req.body.password, admin!.password);
         
-        console.log(passwordMatch)       
-         if(!passwordMatch) {throw new AppError(403, 'Invalid email or password')};
+        if(!passwordMatch) {throw new AppError(403, 'Invalid email or password')};
 
         return next();
 

@@ -1,15 +1,16 @@
+import { instanceToInstance } from "class-transformer";
 import AppDataSource from "../../data-source";
 import { Mother } from "../../entities/Mother.entity";
 
 
-const listMotherByIdService= async (motherId: string) => {
+const listMotherByIdService= async (id: string): Promise<Mother> => {
     const mothersRepository = AppDataSource.getRepository(Mother);
 
-    const myMother = await mothersRepository.find({
-        where: { id: motherId },
-        relations: {childrens:true},
-    });
-    return myMother;
+    const myMother = instanceToInstance(
+        await mothersRepository.findOneBy({id})
+    );
+
+    return myMother!;
 };
 
 export default listMotherByIdService;

@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer"
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm"
 import { Childrens } from "./Childrens.entity"
 
@@ -14,6 +15,7 @@ export class Admin {
     name: string
 
     @Column({length: 128})
+    @Exclude()
     password: string
 
     @Column({length: 128, unique: true})

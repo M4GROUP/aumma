@@ -27,7 +27,6 @@ const createAdminService = async ({
         email: admins.email,
         isAdm: admins.isAdm,
     };
-console.log(password)
     return newAdmin;
 };
 

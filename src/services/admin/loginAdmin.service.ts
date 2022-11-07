@@ -23,7 +23,7 @@ const loginAdminService = async (admin: IAdmLogin ) => {
         }
     );
 
-    return {token: token};
+    return {token: token, adminId: account?.id};
 };
 
 export default loginAdminService;

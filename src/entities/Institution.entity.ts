@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne} from "typ
 
 import { Schedules } from "./Schedules.entity"
 import { Admin } from "./Admin.entity"
+import { Exclude } from "class-transformer"
 
 @Entity()
 export class Institution {
@@ -12,6 +13,8 @@ export class Institution {
     name: string
 
     @Column({length: 128})
+    @Exclude()
+
     password: string
 
     @Column({length: 240})
