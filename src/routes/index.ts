@@ -6,6 +6,8 @@ import { institutionsRoutes } from "./institutions/institutions.routes";
 
 import motherRouter from "./mothers/mothers.routes";
 
+import schedulesRoutes from "./schedules/schedules.routes";
+
 import sessionAdminRouter from "./sessions/admin/sessionAdmin.routes";
 import sessionInstitutionRouter from "./sessions/institutions/sessionInstitution.routes";
 import sessionMotherRouter from "./sessions/mother/sessionMother.routes";
@@ -18,4 +20,5 @@ export const appRoutes = (app: Express) => {
     app.use("/mothers", sessionMotherRouter());
     app.use("/admin", adminRoutes());
     app.use("/admin", sessionAdminRouter());
+    app.use("/schedules", schedulesRoutes)
 };

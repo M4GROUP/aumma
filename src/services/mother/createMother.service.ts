@@ -5,12 +5,13 @@ import { instanceToInstance } from "class-transformer";
 import { Mother } from "../../entities/Mother.entity";
 import { createMotherSerializer } from "../../serializers/mothers/mother.serializer";
 
-const createMotherService = async (motherRequest: IMotherRequest): Promise<IMother> => {
-
+const createMotherService = async (
+    motherRequest: IMotherRequest
+): Promise<IMother> => {
     const serialized = await createMotherSerializer.validate(motherRequest, {
         abortEarly: true,
-        stripUnknown: false
-    })
+        stripUnknown: false,
+    });
 
     // console.log(serialized);
 
@@ -21,19 +22,22 @@ const createMotherService = async (motherRequest: IMotherRequest): Promise<IMoth
     const hashedPassword = await bcrypt.hash(serialized.password, 10);
 
     const mother = motherRepository.create({
-        address: serialized.address, cpf: serialized.cpf, name: serialized.name,
-        email: serialized.email, password: hashedPassword, rg: serialized.rg, 
-        phone: serialized.phone
+        address: serialized.address,
+        cpf: serialized.cpf,
+        name: serialized.name,
+        email: serialized.email,
+        password: hashedPassword,
+        rg: serialized.rg,
+        phone: serialized.phone,
     });
 
-    mother.isActive = true
+    mother.isActive = true;
 
     await motherRepository.save(mother);
 
     const newMother = instanceToInstance(mother);
 
     return newMother;
-
 };
 
 export default createMotherService;

@@ -20,10 +20,11 @@ describe("Testing children's route", () => {
         await connection.destroy();
     });
 
-    test("POST /childrens => Must be able to create childrens", async () => {
+    test("POST /children => Must be able to create childrens", async () => {
         await request(app).post('/mothers').send(mockedMother)
-        const motherLoginResponse2 = await request(app)
-            .post("/mothers/login")
+
+        const motherLoginResponse = await request(app)
+            .post("/login/mothers")
             .send(mockedMotherLogin);
         
         const token2 = `Bearer ${motherLoginResponse2.body.token}`;
