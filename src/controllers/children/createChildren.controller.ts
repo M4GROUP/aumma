@@ -4,15 +4,12 @@ import { createChildren_Service } from "../../services/children/createChildren.s
 
 export const createChildren = async (req: Request, res: Response) => {
     try {
-        const { name, age, genre, isPCD, motherId } = req.body;
+        const children = req.body;
 
-        const result = await createChildren_Service({
-            name,
-            age,
-            genre,
-            isPCD,
-            motherId,
-        });
+        const motherId = req.mother.sub
+        const result = await createChildren_Service(children, motherId);
+        console.log(motherId)
+
         return res.status(201).json(result);
     } catch (error) {
         if (error instanceof AppError) {

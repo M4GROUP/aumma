@@ -24,20 +24,20 @@ describe("Testing children's route", () => {
         await request(app).post('/mothers').send(mockedMother)
 
         const motherLoginResponse = await request(app)
-            .post("/login/mothers")
+            .post("/mothers/login")
             .send(mockedMotherLogin);
         
-        const token2 = `Bearer ${motherLoginResponse2.body.token}`;
-        const motherId = motherLoginResponse2.body.motherId;
+        const token = `Bearer ${motherLoginResponse.body.token}`;
+        const motherId = motherLoginResponse.body.motherId;
         const resultChildren = await request(app)
             .post("/childrens")
-            .set("Authorization", token2)
+            .set("Authorization", token)
             .send({
                 age: 6,
                 genre: "Feminino",
                 name: "Maya",
                 isPCD: false,
-                motherId: motherId,
+                // motherId: motherId,
             });
 
         expect(resultChildren.body).toHaveProperty("id");
