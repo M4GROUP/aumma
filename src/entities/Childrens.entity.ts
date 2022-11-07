@@ -22,6 +22,9 @@ export class Childrens {
     @Column()
     genre: string
 
+    @Column({default:true})
+    isActive: boolean
+
     @ManyToOne((type) => Mother, (motherChildrens) => motherChildrens.childrens)
     mother: Mother
 

@@ -13,17 +13,20 @@ import listMotherByIdController from "../../controllers/admin/listMotherById.con
 import updateAdminByIdController from "../../controllers/admin/updateAdmin.controller";
 import updateInstitutionByIdController from "../../controllers/admin/updateInstitutionById.controller";
 import updateMotherByIdController from "../../controllers/admin/updateMotherById.controller";
+
+import ensureAdminExists from "../../middlewares/admin/ensureAdminExists.middleware";
 import ensurePrivilegeAdmin from "../../middlewares/admin/ensureAdminPrivilege.middleware";
 import ensureAuthAdm from "../../middlewares/admin/ensureAuthAdmin.middleware";
 import ensureisActiveAdmin from "../../middlewares/admin/ensureIsActiveAdmin.middleware";
+import ensurePasswordOrName from "../../middlewares/admin/ensurePasswordOrName.middleware";
 
 const routes = Router();
 
 export const adminRoutes = () => {
-    routes.post("/", ensureAuthAdm ,ensurePrivilegeAdmin,createAdminController);
+    routes.post("/", ensureAdminExists, ensurePasswordOrName ,createAdminController);
     routes.get(
         "/",
-        ensureAuthAdm,
+        ensureAuthAdm, ensurePrivilegeAdmin,
         ensureisActiveAdmin,
         listAllAdminsController
     );
@@ -65,6 +68,7 @@ export const adminRoutes = () => {
         "/institutions/:id",
         ensureAuthAdm,
         ensureisActiveAdmin,
+        ensurePrivilegeAdmin,
         listInstitutionByIdController
     );
     routes.patch(

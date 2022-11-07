@@ -12,43 +12,22 @@ const createAdminService = async ({
 }: IAdmRequest) => {
     const adminRepository = AppDataSource.getRepository(Admin);
 
-    const admin = await adminRepository.find();
-    const adminAlreadyExist = admin.find((admin) => admin.email === email);
-    if (adminAlreadyExist) {
-        throw new AppError(404, "Admin already exists");
-    }
+    const admins = new Admin();
+    admins.name = name;
+    admins.email = email;
+    admins.password = await bcryptjs.hash(password, 10);
+    admins.isAdm = isAdm;
 
-    if (name.length < 3) {
-        throw new AppError(
-            404,
-            "Admin name must have more letters than 3"
-        );
-    }
-
-    if (password.length > 10 || password.length < 2) {
-        throw new AppError(
-            404,
-            "Password must have 3 digits or at least 10"
-        );
-    }
-
-
-    const adminis = new Admin();
-    adminis.name = name;
-    adminis.email = email;
-    adminis.password = bcryptjs.hashSync(password, 10);
-    adminis.isAdm = isAdm;
-
-    adminRepository.create(adminis);
-    await adminRepository.save(adminis);
+    adminRepository.create(admins);
+    await adminRepository.save(admins);
 
     const newAdmin = {
-        id: adminis.id,
+        id: admins.id,
         name: name,
-        email: adminis.email,
-        isAdm: adminis.isAdm,
+        email: admins.email,
+        isAdm: admins.isAdm,
     };
-
+console.log(password)
     return newAdmin;
 };
 
