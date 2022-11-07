@@ -1,46 +1,59 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, DeleteDateColumn, ManyToOne } from "typeorm"
-import { Admin } from "./Admin.entity"
-import { Childrens } from "./Childrens.entity"
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    CreateDateColumn,
+    DeleteDateColumn,
+    ManyToOne,
+} from "typeorm";
+import { Admin } from "./Admin.entity";
+import { Childrens } from "./Childrens.entity";
 
-import { Institution } from "./Institution.entity"
-import { Mother } from "./Mother.entity"
+import { Institution } from "./Institution.entity";
+import { Mother } from "./Mother.entity";
 
 @Entity()
 export class Schedules {
+    
     @PrimaryGeneratedColumn("uuid")
-    readonly id: string
+    readonly id: string;
 
-    @Column({length: 128})
-    name: string
+    @Column({ length: 128 })
+    name: string;
 
-    @Column()
-    date: Date
+    @Column({ type: "date" })
+    date: string;
 
-    @Column({default: true})
-    isActive: boolean
-
-    @Column()
-    period: string
-
-    @CreateDateColumn({name: "createdAt"})
-    createdAt: Date
-
-    @DeleteDateColumn({name: "deletedAt"})
-    deletedAt: Date
+    @Column({ default: true })
+    isActive: boolean;
 
     @Column()
-    idChildren: string
+    period: string;
+
+    @CreateDateColumn({ name: "createdAt" })
+    createdAt: Date;
+
+    @DeleteDateColumn({ name: "deletedAt" })
+    deletedAt: Date;
 
     @Column()
-    idInstitution: string
+    idChildren: string;
 
-    @ManyToOne((type) => Institution, (institutionsSchedules) => institutionsSchedules.schedules)
-    institution: Institution
+    @Column()
+    idInstitution: string;
+
+    @ManyToOne(
+        () => Institution,
+    )
+    institution: Institution;
 
     @ManyToOne((type) => Admin, (motherSchedules) => motherSchedules.schedules)
-    admin: Admin
+    admin: Admin;
 
-    @ManyToOne((type) => Childrens, (childrensSchedules) => childrensSchedules.schedules)
-    childrens: Childrens
+    @ManyToOne(
+        () => Childrens,
+        /* (childrensSchedules) => childrensSchedules.schedules */
+    )
+    childrens: Childrens;
+    newSchedule: Schedules;
 }
-

@@ -3,12 +3,12 @@ import { IChildrenRequest } from "../childrens"
 
 export interface IScheduleRequest {
     name: string,
-    date: Date
+    date: string
     isActive: boolean
     period: string
-    gender: string
+    /* gender: string */
     idChildren: string
-    idIntitution: string
+    idInstitution: string
 }
 
 export interface IScheduleResponse {

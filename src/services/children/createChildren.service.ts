@@ -14,6 +14,9 @@ export const createChildren_Service = async ({
     isPCD,
     motherId
 }: IChildrenRequest) /* : Promise<IChildrenRequest> */ => {
+
+    console.log(motherId);
+
     const ChildrenRepository = AppDataSource.getRepository(Childrens);
     const MotherRepository = AppDataSource.getRepository(Mother);
 
