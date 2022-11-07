@@ -28,6 +28,8 @@ describe("Testing children's route", () => {
     });
 
     test("POST /children => Must be able to create childrens", async () => {
+        await request(app).post('/mothers').send(mockedMother)
+
         const motherLoginResponse = await request(app)
             .post("/login/mothers")
             .send(mockedMotherLogin);

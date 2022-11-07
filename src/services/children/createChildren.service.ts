@@ -16,6 +16,9 @@ export const createChildren_Service = async ({
     institutionsId,
     motherId,
 }: IChildrenRequest) /* : Promise<IChildrenRequest> */ => {
+
+    console.log(motherId);
+
     const ChildrenRepository = AppDataSource.getRepository(Childrens);
     const MotherRepository = AppDataSource.getRepository(Mother);
     const IntituitionRepository = AppDataSource.getRepository(Institution);

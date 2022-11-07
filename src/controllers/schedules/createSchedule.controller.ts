@@ -6,7 +6,9 @@ const createScheduleController = async (req: Request, res: Response) => {
     try {
 
         const body = req.body
-        const scheduleCreated = await createScheduleService(body)
+        const id = req.params.id
+        const institutionId = req.body.institution 
+        const scheduleCreated = await createScheduleService(id, institutionId, body)
         res.status(201).json(scheduleCreated)
 
     }catch (err) {

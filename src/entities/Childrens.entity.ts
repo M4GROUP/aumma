@@ -28,7 +28,7 @@ export class Childrens {
     @ManyToOne((type) => Admin, (adminChildrens) => adminChildrens.childrens)
     admin: Admin
 
-    @OneToMany((type) => Schedules, (childrensSchedules) => childrensSchedules.childrens)
+    @OneToMany((type) => Schedules, (schedules) => schedules.childrens)
     schedules: Schedules[]
 }
 

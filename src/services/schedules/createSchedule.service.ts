@@ -1,14 +1,31 @@
 import AppDataSource from "../../data-source";
+import { Childrens } from "../../entities/Childrens.entity";
+import { Institution } from "../../entities/Institution.entity";
+import { Mother } from "../../entities/Mother.entity";
 import { Schedules } from "../../entities/Schedules.entity";
 import { AppError } from "../../errors/AppError";
 import { IScheduleRequest } from "../../interfaces/schedules";
 
-const createScheduleService = async ({name, date, period, idChildren, idInstitution}: IScheduleRequest): Promise<IScheduleRequest> => {
+const createScheduleService = async (childrenId: string, institutionId: string , {name, date, period}: IScheduleRequest): Promise<IScheduleRequest> => {
    
     const schedulesRepository = AppDataSource.getRepository(Schedules)
+    const institutionRepository = AppDataSource.getRepository(Institution)
+    const childrenRepository = AppDataSource.getRepository(Childrens)
 
-    const schedulesAlreadyExists = await schedulesRepository.findOneBy({ name: name })
-
+    const schedulesAlreadyExists = await schedulesRepository.findOneBy({ name })
+    
+    if(!childrenId){
+        throw new AppError(404, "Children is missing")
+    }
+    
+    const children = await childrenRepository.findOneBy({ id: childrenId })
+    
+    if(!institutionId){
+        throw new AppError(404, "Intituition is missing")
+    } 
+    
+    const institution= await institutionRepository.findOneBy({ id: institutionId })
+    
     if(schedulesAlreadyExists){
         throw new AppError(400, "Schedules already exists")
     }
@@ -25,20 +42,18 @@ const createScheduleService = async ({name, date, period, idChildren, idInstitut
         throw new AppError(404, "Period is missing")
     }
 
-    if(!idChildren){
-        throw new AppError(404, "Children is missing")
-    }
-
-    if(!idInstitution){
-        throw new AppError(404, "Intituition is missing")
-    }
-
     const newSchedule = new Schedules()
      newSchedule.name = name
      newSchedule.date = date
      newSchedule.period = period
-     newSchedule.idChildren = idChildren
-     newSchedule.idInstitution = idInstitution
+     
+    if(children){
+        newSchedule.childrens = children
+    }
+        
+    if(institution){
+        newSchedule.institution= institution
+    }
 
     const schedule =  schedulesRepository.create( newSchedule )
 
