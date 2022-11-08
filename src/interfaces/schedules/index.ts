@@ -1,7 +1,7 @@
 export interface IScheduleRequest {
     name: string,
     date: string
-    isActive: boolean
+    isActive?: boolean
     period: string
     childrensId: string,
     institutionsId: string,

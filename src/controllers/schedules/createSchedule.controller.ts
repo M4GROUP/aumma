@@ -5,11 +5,10 @@ import createScheduleService from "../../services/schedules/createSchedule.servi
 const createScheduleController = async (req: Request, res: Response) => {
     try {
 
-        const body = req.body
-        const id = req.params.id
+        const {name, date, period, childrensId} = req.body
         console.log(body)
-        const institutionId = req.body.institution 
-        const scheduleCreated = await createScheduleService(id, institutionId, body)
+        const institutionsId = req.params.id
+        const scheduleCreated = await createScheduleService({name, date, period, childrensId, institutionsId})
         res.status(201).json(scheduleCreated)
 
     }catch (err) {

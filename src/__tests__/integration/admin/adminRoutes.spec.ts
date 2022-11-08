@@ -13,7 +13,7 @@ import {
 import { mockedInstitution, mockedInstitutionLogin } from "../../mocks/institutions";
 import { mockedMother, mockedMotherLogin } from "../../mocks/mother";
 
-describe("/institutions", () => {
+describe("/Admin", () => {
     let connection: DataSource;
 
     beforeAll(async () => {
@@ -84,16 +84,15 @@ describe("/institutions", () => {
     });
 
     test("GET /admin/institutions -  Must be able to list all institutions", async () => {
-        await request(app).post("/institutions").send(mockedInstitution);
-
+        const response1 = await request(app).post("/admin").send(mockedAdm);
         const adminLoginResponse = await request(app).post("/admin/login").send(mockedAdminLogin);
-
         const token = `Bearer ${adminLoginResponse.body.token}`;
-
-        const response = await request(app).get("/admin/institutions").set("Authorization", token);
-       console.log(response.body)
-        expect(response.body).toHaveProperty("map");
-        expect(response.status).toBe(200)
+        const response2 = await request(app)
+            .post("/institutions")
+            .send(mockedInstitution);
+        const response3 = await request(app).get("/admin/all/institutions")
+        expect(response3.status).toBe(200)
+        expect(response3.body).toHaveLength(1)
 
     });
 
@@ -273,14 +272,14 @@ describe("/institutions", () => {
         expect(response.status).toBe(401);
     });
 
-    test("GET /admin/mothers -  should be able to update admin", async () => {
+    test("GET /admin/mothers -  should be able to list all mothers", async () => {
         await request(app).post('/mothers').send(mockedMother);
 
         const adminLoginResponse = await request(app).post("/admin/login").send(mockedAdminLogin);
 
         const token = `Bearer ${adminLoginResponse.body.token}`;
 
-        const response = await request(app).get("/admin/mothers").set("Authorization", token);
+        const response = await request(app).get("/admin/all/mothers").set("Authorization", token);
 
         expect(response.body).toHaveProperty("map");
         expect(response.status).toBe(200);

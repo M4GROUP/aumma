@@ -20,5 +20,5 @@ export const appRoutes = (app: Express) => {
     app.use("/mothers", sessionMotherRouter());
     app.use("/admin", adminRoutes());
     app.use("/admin", sessionAdminRouter());
-    app.use("/schedules", schedulesRoutes)
+    app.use("/schedules", schedulesRoutes())
 };

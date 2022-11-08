@@ -4,9 +4,9 @@ import { IScheduleResponse } from "../../interfaces/schedules";
 
 export const listSchedules_Service = async () => {
     const schedulesRepository = AppDataSource.getRepository(Schedules);
-    const schedules = await schedulesRepository.find();
+    const schedules = await schedulesRepository.find({withDeleted:true});
     
-    const schedulesActive = schedules.filter( s => s.isActive);
+  
 
-    return schedulesActive;
+    return schedules;
 };

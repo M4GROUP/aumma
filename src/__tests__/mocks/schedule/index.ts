@@ -1,17 +1,28 @@
-import { IChildrenRequest } from "./../../../interfaces/childrens/index";
-import { Childrens } from "../../../entities/Childrens.entity";
+
 import { IScheduleRequest } from "../../../interfaces/schedules";
-import { childrenData } from "../children";
-import { mockedInstitution, mockedInstitutionWithoutCNPJ } from "../institutions";
-import { mockedMother } from "../mother";
+
 
 export const mockedSchedules: IScheduleRequest = {
   name: "Maya",
-    // mother: mockedMother,
   date: "07/11/2022",
-  // gender: "female",
   childrensId: "b855d86b-d4c9-41cd-ab98-d7fa734c6ce4",
-  isActive: true,
-  period: "8h",
+  period: "Manha",
+  institutionsId: "b855d86b-d4c9-41cd-ab98-d7fa734c6ce4"
+}
+
+export const mockedSchedules2: IScheduleRequest = {
+  name: "Maya5",
+  date: "05/10/2022",
+  childrensId: "b855d86b-d4c9-41cd-ab98-d7fa734c6ce4",
+  period: "Tarde",
+  institutionsId: "b855d86b-d4c9-41cd-ab98-d7fa734c6ce4"
+}
+
+
+export const mockedSchedules3: IScheduleRequest = {
+  name: "Maya6",
+  date: "05/01/2023",
+  childrensId: "b855d86b-d4c9-41cd-ab98-d7fa734c6ce4",
+  period: "Noite",
   institutionsId: "b855d86b-d4c9-41cd-ab98-d7fa734c6ce4"
 }
