@@ -1,14 +1,18 @@
+import { instanceToInstance } from "class-transformer";
 import AppDataSource from "../../data-source";
 import { Institution } from "../../entities/Institution.entity";
 
-const listInstitutionByIdService = async (institutionId: string) => {
-    const institutionsRepository = AppDataSource.getRepository(Institution);
+const listInstitutionByIdService = async (institutionId: any): Promise<Institution> => {
+   
+    const institutionRepository = AppDataSource.getRepository(Institution);
 
-    const myInds = await institutionsRepository.find({
-        where: { id: institutionId },
+    const institution = instanceToInstance(await institutionRepository.findOne({
         relations: { schedules: true },
-    });
-    return myInds;
+        where: { id: institutionId },
+    }));
+
+    return institution!;
+
 };
 
 export default listInstitutionByIdService;

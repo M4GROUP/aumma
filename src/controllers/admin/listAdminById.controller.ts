@@ -5,11 +5,11 @@ import listAdminByIdService from "../../services/admin/listAdminById.service";
 
 const listAdminByIdController = async (req: Request, res: Response) => {
   try {
-    const {id} = req.params
-    const instId = id
-    const myAdmin = await listAdminByIdService(instId);
+    const id = req.params.id
 
-    return res.send(myAdmin);
+    const admin = await listAdminByIdService(id);
+
+    return res.status(200).json(admin);
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);

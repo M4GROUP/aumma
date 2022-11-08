@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import AppDataSource from "../../data-source";
 import { Mother } from "../../entities/Mother.entity";
 import { AppError, handleError } from "../../errors/AppError";
-import bcrypt from 'bcryptjs'
+import * as bcrypt from 'bcryptjs'
 
 const ensureMother = async (req: Request, res: Response, next: NextFunction) => {
 

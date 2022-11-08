@@ -1,6 +1,5 @@
 import AppDataSource from "../../data-source";
 import { Childrens } from "../../entities/Childrens.entity";
-import { Institution } from "../../entities/Institution.entity";
 import { Mother } from "../../entities/Mother.entity";
 import { AppError } from "../../errors/AppError";
 import {
@@ -8,47 +7,35 @@ import {
     IChildrenResponse,
 } from "../../interfaces/childrens";
 
-export const createChildren_Service = async ({
-    name,
-    age,
-    genre,
-    isPCD,
-    institutionsId,
-    motherId,
-}: IChildrenRequest) /* : Promise<IChildrenRequest> */ => {
-    const ChildrenRepository = AppDataSource.getRepository(Childrens);
-    const MotherRepository = AppDataSource.getRepository(Mother);
-    const IntituitionRepository = AppDataSource.getRepository(Institution);
-
-    const children = await ChildrenRepository.find();
-
+export const createChildren_Service = async (childrenRequest: IChildrenRequest, motherId: string) => {
+    const {age, genre,isPCD,name,institutionsId} = childrenRequest
+    
+    const childrenRepository = AppDataSource.getRepository(Childrens);
+    const motherRepository = AppDataSource.getRepository(Mother);
+    
+    if (!motherId){throw new AppError(400, "Data is requisites")};
+  
+    const mother = await motherRepository.findOneBy({id: motherId});
+    
+    const children = await childrenRepository.find();
+    
     const validChildren = children.find((children) => children.name === name);
-    if (validChildren)
-        throw new AppError(400, "Children already exist in institution");
-    if (!motherId || !institutionsId)
-        throw new AppError(400, "Data is requisites");
-
-    const mother = await MotherRepository.findOne({
-        where: { id: motherId },
-    });
-    const institution = await IntituitionRepository.findOne({
-        where: { id: institutionsId },
-    });
-
-    if (!mother || !institution) {
-        throw new AppError(400, "Not Found id of mother or institution");
-    }
-
+    
+    if (validChildren){throw new AppError(400, "Children already exist ")};
+    
+    if (!mother){throw new AppError(400, "Not Found id of mother")};
     const newChildren = new Childrens();
     newChildren.name = name;
     newChildren.age = age;
     newChildren.genre = genre;
     newChildren.isPCD = isPCD;
     newChildren.mother = mother;
-   
+    
+    const newChild =  childrenRepository.create(newChildren);
 
-    await ChildrenRepository.save(newChildren);
-    ChildrenRepository.create(newChildren);
-
-    return newChildren;
+    newChild.isActive = true
+    
+    await childrenRepository.save(newChild);    
+    
+    return newChild;
 };

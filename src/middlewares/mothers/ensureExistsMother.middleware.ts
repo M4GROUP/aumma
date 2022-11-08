@@ -10,13 +10,12 @@ const ensureExistsMother = async (req: Request, res: Response, next: NextFunctio
         const email = req.body.email;
 
         const motherRepository = AppDataSource.getRepository(Mother);
+   
         const mothers = await motherRepository.find();
-
 
         if(!email){throw new AppError(400, 'E-mail is missing')};
       
-      
-          const emailAlreadyExists = mothers.find(mother => mother.email === email);
+        const emailAlreadyExists = mothers.find(mother => mother.email === email);
         
         if (emailAlreadyExists) {throw new AppError(400,"Email already exists")};
 

@@ -13,58 +13,75 @@ import listMotherByIdController from "../../controllers/admin/listMotherById.con
 import updateAdminByIdController from "../../controllers/admin/updateAdmin.controller";
 import updateInstitutionByIdController from "../../controllers/admin/updateInstitutionById.controller";
 import updateMotherByIdController from "../../controllers/admin/updateMotherById.controller";
+
+import ensureAdminExists from "../../middlewares/admin/ensureAdminExists.middleware";
+import ensureAdminId from "../../middlewares/admin/ensureAdminId.middleware";
 import ensurePrivilegeAdmin from "../../middlewares/admin/ensureAdminPrivilege.middleware";
 import ensureAuthAdm from "../../middlewares/admin/ensureAuthAdmin.middleware";
+import ensureEmail from "../../middlewares/admin/ensureEmail.middleware";
 import ensureisActiveAdmin from "../../middlewares/admin/ensureIsActiveAdmin.middleware";
+import ensurePasswordOrName from "../../middlewares/admin/ensurePasswordOrName.middleware";
+import ensureIsInstitutionMiddleware from "../../middlewares/institutions/ensureIsInstitution.middleware";
+import ensureMotherId from "../../middlewares/mothers/ensureMotherId.middleware";
 
 const routes = Router();
 
 export const adminRoutes = () => {
-    routes.post("/", ensureAuthAdm ,ensurePrivilegeAdmin,createAdminController);
+    routes.post(
+        "/",
+        ensureAdminExists,
+        ensurePasswordOrName,
+        createAdminController
+    );
     routes.get(
         "/",
         ensureAuthAdm,
+        ensurePrivilegeAdmin,
         ensureisActiveAdmin,
         listAllAdminsController
     );
     routes.get(
         "/:id",
         ensureAuthAdm,
+        ensureAdminId,
         ensureisActiveAdmin,
         listAdminByIdController
     );
     routes.patch(
         "/:id",
         ensureAuthAdm,
+        ensureAdminId,
         ensureisActiveAdmin,
         ensurePrivilegeAdmin,
+        ensureAdminId,
+        ensureEmail,
         updateAdminByIdController
     );
+
     routes.delete(
         "/:id",
         ensureAuthAdm,
         ensureisActiveAdmin,
+        ensureAdminId,
         ensurePrivilegeAdmin,
         deleteAdminByIdController
     );
-    //rota com problema
-    routes.get(
-        "/institutions",
-        ensureAuthAdm,
-        ensureisActiveAdmin,
-        listAllInstitutionsController
-    );
+
     routes.delete(
         "/institutions/:id",
         ensureAuthAdm,
         ensureisActiveAdmin,
         ensurePrivilegeAdmin,
+        ensureIsInstitutionMiddleware,
         deleteInstitutionByIdController
     );
+
     routes.get(
         "/institutions/:id",
         ensureAuthAdm,
         ensureisActiveAdmin,
+        ensurePrivilegeAdmin,
+        ensureIsInstitutionMiddleware,
         listInstitutionByIdController
     );
     routes.patch(
@@ -77,7 +94,7 @@ export const adminRoutes = () => {
     //Rota com problema
 
     routes.get(
-        "/mothers",
+        "/all/mothers",
 
         listAllMothersController
     );
@@ -85,6 +102,7 @@ export const adminRoutes = () => {
         "/mothers/:id",
         ensureAuthAdm,
         ensureisActiveAdmin,
+        ensureMotherId,
         listMotherByIdController
     );
     routes.patch(
@@ -92,6 +110,7 @@ export const adminRoutes = () => {
         ensureAuthAdm,
         ensureisActiveAdmin,
         ensurePrivilegeAdmin,
+        ensureMotherId,
         updateMotherByIdController
     );
     routes.delete(
@@ -99,14 +118,16 @@ export const adminRoutes = () => {
         ensureAuthAdm,
         ensureisActiveAdmin,
         ensurePrivilegeAdmin,
+        ensureMotherId,
         deleteMotherByIdController
     );
     routes.get(
         "/schedules",
-         ensureAuthAdm,
-         ensureisActiveAdmin,
+        ensureAuthAdm,
+        ensureisActiveAdmin,
         listAllSchedulesController
     );
 
+   routes.get("/all/institutions", listAllInstitutionsController)
     return routes;
 };

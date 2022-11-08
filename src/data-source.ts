@@ -1,6 +1,5 @@
 import { DataSource } from "typeorm";
 import "dotenv/config";
-
 const AppDataSource = new DataSource(
   process.env.NODE_ENV === "test"
     ? {
@@ -16,7 +15,7 @@ const AppDataSource = new DataSource(
             { rejectUnauthorized: false}
             : false,
         logging: true,
-        synchronize: false,
+        synchronize: true,
         entities:  process.env.NODE_ENV === "production"
           ? ["dist/src/entities/*.js"]
           : ["src/entities/*.ts"],
@@ -25,5 +24,4 @@ const AppDataSource = new DataSource(
           : ["src/migrations/*.ts"],
       }
 );
-
 export default AppDataSource;

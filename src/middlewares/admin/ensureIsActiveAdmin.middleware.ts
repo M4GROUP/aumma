@@ -7,8 +7,7 @@ const ensureisActiveAdmin = async (req: Request, res: Response, next: NextFuncti
     
     try {
         
-        const id = req.adm.id
-        
+        const id = req.adm.id;        
 
         const adminRepository = AppDataSource.getRepository(Admin);
 

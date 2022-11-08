@@ -9,7 +9,7 @@ export const mockedAdm: IAdmRequest = {
 
 export const mockedAdmWithoutPermission: IAdmRequest = {
     name: "Jose",
-    email: "jose@mail.com",
+    email: "teste@mail.com",
     isAdm: false,
     password: "123456789",
 };
@@ -26,11 +26,11 @@ export const mockedAdmWithoutPassword: IAdmRequest = {
     email: "fulano@mail.com",
     isAdm: true,
     password: "",
-};
+};  
 
 export const mockedAdminLogin: IAdmLogin = {
-    email: "felipe@mail.com",
-    password: "123456",
+    email: "joao@mail.com",
+    password: "123456789",
 };
 
 export const mockedNotAdminLogin: IAdmLogin = {
@@ -39,6 +39,6 @@ export const mockedNotAdminLogin: IAdmLogin = {
 };
 
 export const mockedWrongAdminLogin: IAdmLogin = {
-    email: "jose@mail.com",
+    email: "joose@mail.com",
     password: "554433",
 };
