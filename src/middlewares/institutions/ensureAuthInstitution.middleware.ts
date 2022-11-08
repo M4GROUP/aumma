@@ -10,7 +10,7 @@ const ensureInstitutionAuthMiddleware = async (
 ) => {
     try {
         let token = req.headers.authorization?.split(" ")[1];
-console.log(token)
+
         if (!token) {
             throw new AppError(401, "No token found");
         }

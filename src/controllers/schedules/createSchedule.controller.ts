@@ -6,7 +6,6 @@ const createScheduleController = async (req: Request, res: Response) => {
     try {
 
         const {name, date, period, childrensId} = req.body
-        console.log(body)
         const institutionsId = req.params.id
         const scheduleCreated = await createScheduleService({name, date, period, childrensId, institutionsId})
         res.status(201).json(scheduleCreated)
