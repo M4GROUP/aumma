@@ -27,10 +27,16 @@ import ensureMotherId from "../../middlewares/mothers/ensureMotherId.middleware"
 const routes = Router();
 
 export const adminRoutes = () => {
-    routes.post("/", ensureAdminExists, ensurePasswordOrName ,createAdminController);
+    routes.post(
+        "/",
+        ensureAdminExists,
+        ensurePasswordOrName,
+        createAdminController
+    );
     routes.get(
         "/",
-        ensureAuthAdm, ensurePrivilegeAdmin,
+        ensureAuthAdm,
+        ensurePrivilegeAdmin,
         ensureisActiveAdmin,
         listAllAdminsController
     );
@@ -60,8 +66,6 @@ export const adminRoutes = () => {
         ensurePrivilegeAdmin,
         deleteAdminByIdController
     );
-            
-    routes.get("/institutions", listAllInstitutionsController);
 
     routes.delete(
         "/institutions/:id",
@@ -90,7 +94,7 @@ export const adminRoutes = () => {
     //Rota com problema
 
     routes.get(
-        "/mothers",
+        "/all/mothers",
 
         listAllMothersController
     );
@@ -119,10 +123,11 @@ export const adminRoutes = () => {
     );
     routes.get(
         "/schedules",
-         ensureAuthAdm,
-         ensureisActiveAdmin,
+        ensureAuthAdm,
+        ensureisActiveAdmin,
         listAllSchedulesController
     );
 
+   routes.get("/all/institutions", listAllInstitutionsController)
     return routes;
 };
