@@ -13,7 +13,7 @@ const createScheduleService = async ({childrensId,institutionsId,name,date, peri
     const childrenRepository = AppDataSource.getRepository(Childrens)
 
     const schedulesAlreadyExists = await schedulesRepository.findOneBy({ name })
-    
+
     const children = await childrenRepository.findOneBy({ id: childrensId })
     
     if(!institutionsId){

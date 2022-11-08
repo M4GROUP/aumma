@@ -119,9 +119,7 @@ describe("Testing children's route", () => {
 
     test("PATCH /childrens/mother/:id => Should be able to update a children", async () => {
         await request(app).post('/mothers').send(mockedMother)
-        const motherLoginResponse2 = await request(app)
-            .post("/mothers/login")
-            .send(mockedMotherLogin);
+        const motherLoginResponse2 = await request(app).post("/mothers/login").send(mockedMotherLogin);
         const token2 = `Bearer ${motherLoginResponse2.body.token}`;
         const id = motherLoginResponse2.body.motherId;
 
