@@ -4,6 +4,7 @@ import request from "supertest";
 import app from "../../../app";
 import { mockedSchedules } from "../../mocks/schedule";
 import { mockedMother, mockedMotherLogin } from "../../mocks/mother";
+import { mockedInstitution, mockedInstitutionLogin } from "../../mocks/institutions";
 
 describe("/schedules TESTES", ()=> {
 
@@ -31,15 +32,23 @@ describe("/schedules TESTES", ()=> {
         
         const token = `Bearer ${motherLoginResponse.body.token}`;
 
+        const responseCreateInstitution = await request(app).post("/institutions").send(mockedInstitution);
+        mockedSchedules.institutionsId= responseCreateInstitution.body.id
+        const responseLoginInstitution = await request(app).post("/institutions/login").send(mockedInstitutionLogin);
+        
+        const tokenInstitution = `Bearer ${responseLoginInstitution.body.token}`;
+        
         const childrenResponse = await request(app).post("/childrens").set("Authorization", token).send({
             age: 6,
             genre: "Feminino",
             name: "Maya",
             isPCD: false,
         });
+        
         const childrenId = childrenResponse.body.id
-        const response = await request(app).post(`/schedules/${childrenId}`).send(mockedSchedules)
-        console.log(response.body)
+        console.log(childrenId)
+        const response = await request(app).post(`/schedules/${childrenId}`).set("Authorization", `${tokenInstitution}`).send(mockedSchedules)
+        console.log(tokenInstitution)
 
         expect(response.body).toHaveProperty("mother")
         expect(response.body).toHaveProperty("date")

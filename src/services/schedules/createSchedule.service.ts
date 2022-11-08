@@ -13,7 +13,7 @@ const createScheduleService = async (childrenId: string, institutionId: string ,
     const childrenRepository = AppDataSource.getRepository(Childrens)
 
     const schedulesAlreadyExists = await schedulesRepository.findOneBy({ name })
-    
+    console.log(schedulesAlreadyExists)
     if(!childrenId){
         throw new AppError(404, "Children is missing")
     }

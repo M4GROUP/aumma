@@ -4,6 +4,7 @@ import deleteOneChildrenByMotherController from "../../controllers/children/dele
 import listAllChildrensByMotherController from "../../controllers/children/listAllChildrensByMother.controller";
 import listOneChildrenByMotherController from "../../controllers/children/listOneChildrenByMother.controller";
 import updateOneChildrenByMotherController from "../../controllers/children/updateChildrenByMother.controller";
+import ensureAuthAdm from "../../middlewares/admin/ensureAuthAdmin.middleware";
 import ensureAuthMother from "../../middlewares/mothers/ensureAuthMother.middleware";
 
 const routes = Router();
