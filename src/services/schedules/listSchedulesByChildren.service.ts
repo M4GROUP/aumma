@@ -17,7 +17,7 @@ export const listSchedulesByChildren_Service = async (id: string) => {
     const listSchedules = await schedulesRepository.find({
         where: {
             idChildren: children.id,
-        },
+        },withDeleted:true
     });
     if (listSchedules.length === 0)
         return { message: "No schedules exist for children" };

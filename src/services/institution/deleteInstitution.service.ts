@@ -5,8 +5,7 @@ const deleteInstitutionService = async (institutionId: string) => {
     const institutionRepository = AppDataSource.getRepository(Institution);
 
     const myInds = await institutionRepository.find({
-        where: { id: institutionId },
-        relations: {schedules:true },
+        where: { id: institutionId }
     });
 
     const account = myInds.find(
@@ -15,7 +14,7 @@ const deleteInstitutionService = async (institutionId: string) => {
 
     const newActive = false;
 
-    await institutionRepository.update(account!.id, { isActive: newActive });
+    await institutionRepository.update(account!.id, { isActive: newActive});
 
     return true;
 };

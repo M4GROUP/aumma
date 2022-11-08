@@ -6,16 +6,17 @@ import { listScheduleByInstitution } from "../../controllers/schedules/listSched
 import { listSchedules } from "../../controllers/schedules/listSchedules";
 import { listSchedulesByChildren } from "../../controllers/schedules/listSchedulesByChildren";
 import ensureInstitutionAuthMiddleware from "../../middlewares/institutions/ensureAuthInstitution.middleware";
+import ensureAuthMother from "../../middlewares/mothers/ensureAuthMother.middleware";
 
 const routes = Router()
 
 const schedulesRoutes = () => {
 
-    routes.post("/:id", ensureInstitutionAuthMiddleware, createScheduleController)
+    routes.post("/:id", ensureAuthMother, createScheduleController)
     routes.get("", listSchedules)
-    routes.delete("/:id", deleteSchedules)
-    routes.get("/:id/children", listSchedulesByChildren)
-    routes.get("/:id/intitution", listScheduleByInstitution)
+    routes.delete("/:id/delete", deleteSchedules)
+    routes.get("/:id/children",ensureAuthMother, listSchedulesByChildren)
+    routes.get("/:id/institution",ensureInstitutionAuthMiddleware, listScheduleByInstitution)
 
     return routes
 

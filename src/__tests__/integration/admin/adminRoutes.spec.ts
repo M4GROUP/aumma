@@ -13,7 +13,7 @@ import {
 import { mockedInstitution, mockedInstitutionLogin } from "../../mocks/institutions";
 import { mockedMother, mockedMotherLogin } from "../../mocks/mother";
 
-describe("/institutions", () => {
+describe("/Admin", () => {
     let connection: DataSource;
 
     beforeAll(async () => {
