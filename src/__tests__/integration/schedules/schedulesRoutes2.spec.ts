@@ -246,6 +246,37 @@ describe("/schedules", () => {
         expect(response4.body).toHaveProperty("message");
     });
 
+    test("GET/ SCHEDULES -  Should be not able to list all schedules by children_Id invalid token", async () => {
+        const response = await request(app)
+            .post("/institutions")
+            .send(mockedInstitution);
+        const institutionLoginResponse = await request(app)
+            .post("/institutions/login")
+            .send(mockedInstitutionLogin);
+        const id = institutionLoginResponse.body.id_Institution;
+        const token = `Bearer ${institutionLoginResponse.body.token}`;
+
+        const response2 = await request(app)
+            .post("/mothers")
+            .send(mockedMother);
+        const motherLoginResponse = await request(app)
+            .post("/mothers/login")
+            .send(mockedMotherLogin);
+
+        const token2 = `Bearer ${motherLoginResponse.body.token}`;
+
+        const response3 = await request(app)
+            .post(`/schedules/${id}`)
+            .set("Authorization", token2)
+            .send(mockedSchedules2);
+
+        const response4 = await request(app)
+            .get(`/schedules/${id}/children`);
+        expect(response4.status).toBe(401);
+        expect(response4.body).toHaveProperty("message");
+            
+    });
+
     test("DELETE /:id/delete -  should be able to soft delete the schedules by id", async () => {
         const response = await request(app)
             .post("/institutions")
@@ -277,23 +308,25 @@ describe("/schedules", () => {
 
         const testeId = resultChildren.body.id;
         const response3 = await request(app)
-        .post(`/schedules/${id}`)
-        .set("Authorization", token2)
-        .send({
-            name: "Maya7",
-            date: "05/05/2024",
-            childrensId: testeId,
-            period: "Noite",
-            institutionsId: id,
-        });
-        const testeId2 = response3.body.childrens.id
+            .post(`/schedules/${id}`)
+            .set("Authorization", token2)
+            .send({
+                name: "Maya7",
+                date: "05/05/2024",
+                childrensId: testeId,
+                period: "Noite",
+                institutionsId: id,
+            });
+        const testeId2 = response3.body.childrens.id;
         const response4 = await request(app)
-        .get(`/schedules/${testeId2}/children`)
-        .set("Authorization", token2);
-        const testeId3 = response4.body.id 
-        
-        const response5 = await request(app).delete(`/schedules/${testeId3}/delete`).set("Authorization", token);
-        expect(response5.status).toBe(204)
-        
+            .get(`/schedules/${testeId2}/children`)
+            .set("Authorization", token2);
+        const testeId3 = response4.body.id;
+
+        const response5 = await request(app)
+            .delete(`/schedules/${testeId3}/delete`)
+            .set("Authorization", token);
+        expect(response5.status).toBe(204);
     });
+  
 });
