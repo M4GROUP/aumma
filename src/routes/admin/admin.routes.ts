@@ -122,7 +122,7 @@ export const adminRoutes = () => {
         deleteMotherByIdController
     );
     routes.get(
-        "/schedules",
+        "/all/schedules",
         ensureAuthAdm,
         ensureisActiveAdmin,
         listAllSchedulesController

@@ -277,23 +277,24 @@ describe("/schedules", () => {
 
         const testeId = resultChildren.body.id;
         const response3 = await request(app)
-        .post(`/schedules/${id}`)
-        .set("Authorization", token2)
-        .send({
-            name: "Maya7",
-            date: "05/05/2024",
-            childrensId: testeId,
-            period: "Noite",
-            institutionsId: id,
-        });
-        const testeId2 = response3.body.childrens.id
+            .post(`/schedules/${id}`)
+            .set("Authorization", token2)
+            .send({
+                name: "Maya7",
+                date: "05/05/2024",
+                childrensId: testeId,
+                period: "Noite",
+                institutionsId: id,
+            });
+        const testeId2 = response3.body.childrens.id;
         const response4 = await request(app)
-        .get(`/schedules/${testeId2}/children`)
-        .set("Authorization", token2);
-        const testeId3 = response4.body.id 
-        
-        const response5 = await request(app).delete(`/schedules/${testeId3}/delete`).set("Authorization", token);
-        expect(response5.status).toBe(204)
-        
+            .get(`/schedules/${testeId2}/children`)
+            .set("Authorization", token2);
+        const testeId3 = response4.body.id;
+
+        const response5 = await request(app)
+            .delete(`/schedules/${testeId3}/delete`)
+            .set("Authorization", token);
+        expect(response5.status).toBe(204);
     });
 });

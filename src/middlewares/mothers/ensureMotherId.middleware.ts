@@ -14,7 +14,6 @@ const ensureMotherId = async (req: Request, res: Response, next: NextFunction) =
         const motherRepository = AppDataSource.getRepository(Mother);
         
         if(!id){ 
-            console.log('imimi')
             throw new AppError(401, "Invalid id") 
         };
         if(tokenId){

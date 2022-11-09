@@ -13,10 +13,6 @@ const createMotherService = async (
         stripUnknown: false,
     });
 
-    // console.log(serialized);
-
-    // const { address, cpf, email, name, password, rg, phone } = motherRequest;
-
     const motherRepository = AppDataSource.getRepository(Mother);
 
     const hashedPassword = await bcrypt.hash(serialized.password, 10);
