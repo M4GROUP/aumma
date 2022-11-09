@@ -9,7 +9,6 @@ export const createChildren = async (req: Request, res: Response) => {
         const motherId = req.mother.sub
         const result = await createChildren_Service(children, motherId);
 
-
         return res.status(201).json(result);
     } catch (error) {
         if (error instanceof AppError) {
